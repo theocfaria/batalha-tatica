@@ -1,13 +1,24 @@
 package entidades;
-
-import jdk.jshell.PersistentSnippet;
+import utils.Posicionamento;
 
 public class Personagem {
-    private float vidaMaxima;
-    private float ataqueBase;
-    private float defesaBase;
-    private int alcance;
+    protected double vidaMaxima;
+    protected double ataqueBase;
+    protected double defesaBase;
+    protected int alcance;
+    protected Posicionamento posicao;
+    protected int equipe;
 
-    public void anda() {}
-    public void ataca(Personagem inimigo) {}
+    public void andar(int linha, int coluna) {
+
+    }
+    public void atacar(Personagem inimigo) {}
+
+    public Posicionamento getPosicao() {
+        return posicao;
+    }
+
+    protected void setPosicao(int linha, int coluna) {
+        if((linha >= 0 && linha < 10) &&  (coluna >= 0 && coluna < 10)) {}
+    }
 }
