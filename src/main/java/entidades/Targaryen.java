@@ -1,19 +1,19 @@
 package entidades;
 
-import utils.Personagem;
 import utils.Equipe;
+import utils.Personagem;
 import utils.Posicao;
 
-public class Stark extends Personagem {
-    public Stark(Equipe equipe) {
-        this.vida = 60.0;
-        this.alcance = 1;
+public class Targaryen extends Personagem {
+    public Targaryen(Equipe equipe) {
+        this.vida = 45.0;
+        this.alcance = 3;
         this.equipe = equipe;
     }
 
     @Override
     public void setPosicao(int linha, int coluna) {
         this.posicao = new Posicao(linha, coluna);
-        Tabuleiro.tabuleiro[linha][coluna] = "\uD83D\uDEE1\uFE0F";
+        Tabuleiro.tabuleiro[linha][coluna] = "\uD83C\uDFF9";
     }
 }
