@@ -55,14 +55,17 @@ public class Tabuleiro {
         int largura = 0;
         for (int codePoint : texto.codePoints().toArray()) {
             Character.UnicodeBlock bloco = Character.UnicodeBlock.of(codePoint);
-            if (bloco != null && (
-                    bloco == Character.UnicodeBlock.MISCELLANEOUS_SYMBOLS_AND_PICTOGRAPHS ||
-                            bloco == Character.UnicodeBlock.EMOTICONS ||
-                            bloco == Character.UnicodeBlock.MISCELLANEOUS_SYMBOLS_AND_ARROWS
+            // caracteres invisíveis de variações (não alteram a largura)
+            if (bloco == Character.UnicodeBlock.VARIATION_SELECTORS) {
+                largura += 0;
+            }
+            // os emotes
+            else if (bloco != null && (
+                    bloco == Character.UnicodeBlock.MISCELLANEOUS_SYMBOLS_AND_PICTOGRAPHS /* adaga */ ||
+                            bloco == Character.UnicodeBlock.MISCELLANEOUS_SYMBOLS_AND_ARROWS /* arco */||
+                            bloco == Character.UnicodeBlock.TRANSPORT_AND_MAP_SYMBOLS /* escudo */
             )) {
                 largura += 2;
-            } else {
-                largura += 1;
             }
         }
         return largura;
