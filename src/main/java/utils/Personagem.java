@@ -4,6 +4,7 @@ import entidades.Tabuleiro;
 import java.util.Scanner;
 
 public abstract class Personagem {
+    private Scanner scanner = new Scanner(System.in);
     protected double vida;
     protected double ataqueBase = 20.0;
     protected double defesaBase = 10.0;
@@ -34,7 +35,7 @@ public abstract class Personagem {
         System.out.println("Defesa: " + this.defesaBase);
     }
 
-    public void agir() {
+    public void agir(Equipe equipeInimiga) {
         System.out.print("Digite 'w' para andar para ↑ \t");
         System.out.print("Digite 'q' para andar para ↖ \t");
         System.out.println("Digite 'e' para andar para ↗ ");
@@ -44,6 +45,7 @@ public abstract class Personagem {
         System.out.print("Digite 'c' para andar para ↘  \t");
         System.out.print("Digite 'd' para andar para →\t");
         System.out.println("Digite 'f' para ⚔\uFE0F");
+
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.next();
         switch(comando) {
@@ -95,9 +97,27 @@ public abstract class Personagem {
                 this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna + 1);
                 break;
 
-            // case "f":
-                // atacar()
-                // break
+            case "f":
+                System.out.println("Escolha um inimigo para atacar:");
+                for (int i = 0; i < equipeInimiga.integrantes.length; i++) {
+                    Personagem inimigo = equipeInimiga.integrantes[i];
+                    if (inimigo.getVida() > 0) {
+                        System.out.println(i + ": " + inimigo.getClass().getSimpleName() +
+                                " (Vida: " + inimigo.getVida() +
+                                ", Posição: [" + inimigo.getPosicao().linha + "," + inimigo.getPosicao().coluna + "])");
+                    }
+                }
+
+                System.out.print("Digite o índice do inimigo: ");
+                int indiceAlvo = scanner.nextInt();
+
+                if (indiceAlvo >= 0 && indiceAlvo < equipeInimiga.integrantes.length) {
+                    Personagem alvo = equipeInimiga.integrantes[indiceAlvo];
+                    atacar(alvo);
+                } else {
+                    System.out.println("Índice inválido.");
+                }
+                break;
 
             default:
                 System.out.println("Comando inválido.");
@@ -108,15 +128,25 @@ public abstract class Personagem {
         }
     }
 
+    // Dentro da classe Personagem
+
     public void atacar(Personagem inimigo) {
-        if(inimigo.vida > 0) {
-            if(checaDistancia(inimigo))
-                inimigo.receberDano(this.ataqueBase);
-            else
-                System.out.println("Inimigo fora do alcance. ");
+        if (inimigo.equipe.id == this.equipe.id) {
+            System.out.println("Você não pode atacar um membro da sua própria equipe!");
+            return;
         }
-        else {
-            System.out.println("Inimigo já morreu.");
+
+        if (inimigo.getVida() <= 0) {
+            System.out.println("O alvo já está derrotado.");
+            return;
+        }
+
+        if (checaDistancia(inimigo)) {
+            System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
+            inimigo.receberDano(this.ataqueBase);
+            System.out.println("Dano causado! Vida restante do inimigo: " + inimigo.getVida());
+        } else {
+            System.out.println("Inimigo fora do alcance.");
         }
     }
 

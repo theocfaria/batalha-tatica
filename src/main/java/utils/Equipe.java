@@ -67,16 +67,17 @@ public class Equipe {
         }
     }
 
-    public void escolheIntegrante() {
+    public void escolheIntegrante(Equipe equipeInimiga) {
         Scanner sc = new Scanner(System.in);
         Tabuleiro.imprimirTabuleiro();
-        System.out.print("Digite o índice do integrante que deseja mexer: ");
+        System.out.println("Turno da Equipe " + this.id);
+        System.out.print("Digite o índice do integrante que deseja mexer (0, 1 ou 2): ");
         int escolhido = sc.nextInt();
         while(escolhido < 0 || escolhido > 2){
             System.out.print("Índice inválido! Digite novamente o índice do integrante que deseja mexer: ");
             escolhido = sc.nextInt();
         }
-        integrantes[escolhido].agir();
+        integrantes[escolhido].agir(equipeInimiga);
     }
 
     public boolean perdeu() {
