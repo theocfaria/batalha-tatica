@@ -49,49 +49,49 @@ public abstract class Personagem {
         switch(comando) {
             case "w":
                 if(posicao.linha > 0) {
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = " ";
+                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha - 1, this.getPosicao().coluna);
                 }
                 break;
 
             case "a":
                 if(posicao.coluna > 0) {
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = " ";
+                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha, this.getPosicao().coluna - 1);
                 }
                 break;
 
             case "s":
                 if(posicao.linha < Tabuleiro.TAMANHO) {
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = " ";
+                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna);
                 }
                 break;
 
             case "d":
                 if(posicao.coluna < Tabuleiro.TAMANHO) {
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = " ";
+                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha, this.getPosicao().coluna + 1);
                 }
                 break;
 
             case "q":
-                Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = " ";
+                Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                 this.setPosicao(this.getPosicao().linha - 1, this.getPosicao().coluna - 1);
                 break;
 
             case "e":
-                Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = " ";
+                Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                 this.setPosicao(this.getPosicao().linha - 1, this.getPosicao().coluna + 1);
                 break;
 
             case "z":
-                Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = " ";
+                Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                 this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna - 1);
                 break;
 
             case "c":
-                Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = " ";
+                Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                 this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna + 1);
                 break;
 
