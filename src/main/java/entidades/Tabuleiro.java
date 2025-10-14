@@ -49,17 +49,25 @@ public class Tabuleiro {
     }
 
     private static int getLarguraVisual(String texto) {
+        if (texto == null || texto.isEmpty()) {
+            return 0;
+        }
         int largura = 0;
         for (int codePoint : texto.codePoints().toArray()) {
-            if (Character.charCount(codePoint) == 1 && Character.isISOControl(codePoint)) {
-                largura += 0;
-            } else if (String.valueOf(Character.toChars(codePoint)).matches("\\p{InEmoticons}")) {
+            Character.UnicodeBlock bloco = Character.UnicodeBlock.of(codePoint);
+            if (bloco != null && (
+                    bloco == Character.UnicodeBlock.MISCELLANEOUS_SYMBOLS_AND_PICTOGRAPHS ||
+                            bloco == Character.UnicodeBlock.EMOTICONS ||
+                            bloco == Character.UnicodeBlock.MISCELLANEOUS_SYMBOLS_AND_ARROWS
+            )) {
                 largura += 2;
             } else {
-                largura += 1;            }
+                largura += 1;
+            }
         }
         return largura;
     }
+
 
     private static String centralizarTexto(String texto, int largura) {
         if (texto == null) {
