@@ -6,6 +6,7 @@ public class Main {
         Tabuleiro campo = new Tabuleiro();
         Equipe equipe1 = new Equipe();
         Equipe equipe2 = new Equipe();
+        Tabuleiro.imprimirTabuleiro();
         for(int i = 0; (!equipe1.perdeu() || !equipe2.perdeu()); i++){
             if(i % 2 == 0) {
                 equipe1.escolheIntegrante();

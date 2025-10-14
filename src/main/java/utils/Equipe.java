@@ -8,7 +8,6 @@ import entidades.Stark;
 import entidades.Targaryen;
 
 public class Equipe {
-    private Random rand = new Random();
     protected int integrantesVivos;
     public Personagem[] integrantes;
 
@@ -26,17 +25,17 @@ public class Equipe {
             switch (casa) {
                 case "S": case "s":
                     integrantes[i] = new Stark(this);
-                    integrantes[i].setPosicao(rand.nextInt(10), 0);
+                    integrantes[i].setPosicao(i, 0);
                     break;
 
                 case "L": case "l":
                     integrantes[i] = new Lannister(this);
-                    integrantes[i].setPosicao(rand.nextInt(), 0);
+                    integrantes[i].setPosicao(i, 0);
                     break;
 
                 case "T": case "t":
                     integrantes[i] = new Targaryen(this);
-                    integrantes[i].setPosicao(rand.nextInt(), 0);
+                    integrantes[i].setPosicao(i, 0);
                     break;
             }
         }
