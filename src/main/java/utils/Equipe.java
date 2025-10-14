@@ -76,11 +76,12 @@ public class Equipe {
         Tabuleiro.imprimirTabuleiro();
         System.out.println("Turno da equipe: " + this.id);
         System.out.println("Digite o índice do integrante que deseja mexer: ");
-        System.out.println("Indice 0: "+getPersonagem()[0].getNome());
-        System.out.println("Indice 1: "+getPersonagem()[1].getNome());
-        System.out.println("Indice 2: "+getPersonagem()[2].getNome());
+        for(int i = 0; i < 3; i++) {
+            if(!getPersonagem()[i].morto)
+                System.out.println("Indice " + i + ": " + getPersonagem()[i].getNome());
+        }
         int escolhido = sc.nextInt();
-        while(escolhido < 0 || escolhido > 2){
+        while(escolhido < 0 || escolhido > 2 || getPersonagem()[escolhido].morto){
             System.out.print("Índice inválido! Digite novamente o índice do integrante que deseja mexer: ");
             escolhido = sc.nextInt();
         }

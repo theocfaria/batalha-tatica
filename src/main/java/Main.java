@@ -1,9 +1,11 @@
 import utils.Equipe;
 import entidades.Tabuleiro;
 
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Tabuleiro tabuleiro = new Tabuleiro();
 
         System.out.println("--- Configuração da Equipe 1 ---");
@@ -13,8 +15,6 @@ public class Main {
         Equipe equipe2 = new Equipe(2);
 
         for (int turno = 0; !equipe1.perdeu() && !equipe2.perdeu(); turno++) {
-            Tabuleiro.imprimirTabuleiro();
-
             if (turno % 2 == 0) {
                 System.out.println("\n--- TURNO DA EQUIPE 1 ---");
                 equipe1.escolheIntegrante(equipe2);
@@ -24,7 +24,6 @@ public class Main {
             }
         }
 
-        Tabuleiro.imprimirTabuleiro();
         if (equipe1.perdeu()) {
             System.out.println("A EQUIPE 2 VENCEU!");
         } else {

@@ -11,14 +11,17 @@ public abstract class Personagem {
     protected Posicao posicao;
     protected int alcance;
     public Equipe equipe;
+    boolean morto = false;
 
     public Posicao getPosicao() {
         return posicao;
     }
 
     public void setPosicao(int linha, int coluna) {
-        this.posicao = new Posicao(linha, coluna);
-        Tabuleiro.tabuleiro[linha][coluna] = "X";
+        if(!this.morto) {
+            this.posicao = new Posicao(linha, coluna);
+            Tabuleiro.tabuleiro[linha][coluna] = "X";
+        }
     }
 
     protected void setVida(double vida) {
@@ -36,6 +39,9 @@ public abstract class Personagem {
     }
 
     public void agir(Equipe equipeInimiga) {
+        if(this.morto)
+            return;
+
         System.out.print("Digite 'w' para andar para ↑ \t");
         System.out.print("Digite 'q' para andar para ↖ \t");
         System.out.println("Digite 'e' para andar para ↗ ");
@@ -155,6 +161,10 @@ public abstract class Personagem {
         }
 
         this.setVida(this.vida - danoFinal);
+        if(this.getVida() <= 0) {
+            this.morrer();
+            this.setVida(0);
+        }
     }
 
     protected boolean checaDistancia(Personagem inimigo) {
@@ -164,5 +174,12 @@ public abstract class Personagem {
     protected String getNome(){
         return this.nomeCasa;
     }
+
+    protected void morrer() {
+        Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
+        this.equipe.integrantesVivos--;
+        this.morto = true;
+    }
+
 
 }
