@@ -4,7 +4,7 @@ import entidades.Tabuleiro;
 import java.util.Scanner;
 
 public abstract class Personagem {
-    private Scanner scanner = new Scanner(System.in);
+    protected String nomeCasa;
     protected double vida;
     protected double ataqueBase = 20.0;
     protected double defesaBase = 10.0;
@@ -128,8 +128,6 @@ public abstract class Personagem {
         }
     }
 
-    // Dentro da classe Personagem
-
     public void atacar(Personagem inimigo) {
         if (inimigo.equipe.id == this.equipe.id) {
             System.out.println("Você não pode atacar um membro da sua própria equipe!");
@@ -140,7 +138,6 @@ public abstract class Personagem {
             System.out.println("O alvo já está derrotado.");
             return;
         }
-
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
             inimigo.receberDano(this.ataqueBase);
@@ -148,6 +145,8 @@ public abstract class Personagem {
         } else {
             System.out.println("Inimigo fora do alcance.");
         }
+
+
     }
 
     public void receberDano(double danoBruto) {
@@ -163,4 +162,9 @@ public abstract class Personagem {
     protected boolean checaDistancia(Personagem inimigo) {
         return Posicao.distancia(this.posicao, inimigo.posicao) < this.alcance;
     }
+
+    protected String getNome(){
+        return this.nomeCasa;
+    }
+
 }

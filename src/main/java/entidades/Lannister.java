@@ -23,4 +23,9 @@ public class Lannister extends Personagem {
             inimigo.receberDano(this.ataqueBase * 1.15);
         }
     }
+
+    @Override
+    public String getNome(){
+        return "Lannister";
+    }
 }

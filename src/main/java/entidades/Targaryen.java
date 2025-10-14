@@ -22,4 +22,8 @@ public class Targaryen extends Personagem {
         if(inimigo.getVida() > 0) inimigo.receberDano(this.ataqueBase + inimigo.getDefesa());
     }
 
+    @Override
+    public String getNome(){
+        return "Targaryen";
+    }
 }
