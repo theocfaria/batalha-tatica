@@ -1,10 +1,6 @@
 package utils;
 
-import entidades.Stark;
 import entidades.Tabuleiro;
-
-import java.sql.SQLOutput;
-import java.util.Locale;
 import java.util.Scanner;
 
 public abstract class Personagem {
