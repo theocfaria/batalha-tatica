@@ -16,4 +16,14 @@ public class Stark extends Personagem {
         this.posicao = new Posicao(linha, coluna);
         Tabuleiro.tabuleiro[linha][coluna] = "\uD83D\uDEE1\uFE0F";
     }
+
+    @Override
+    public void receberDano(double danoBruto) {
+        double danoReduzido = danoBruto * 0.8;
+
+        double danoFinal = danoReduzido - this.defesaBase;
+        if (danoFinal < 0) danoFinal = 0;
+
+        this.setVida(this.vida - danoFinal);
+    }
 }

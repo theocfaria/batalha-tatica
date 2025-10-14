@@ -16,4 +16,11 @@ public class Lannister extends Personagem {
         this.posicao = new Posicao(linha, coluna);
         Tabuleiro.tabuleiro[linha][coluna] = "\uD83D\uDDE1\uFE0F";
     }
+
+    @Override
+    public void atacar(Personagem inimigo) {
+        if(inimigo.getVida() > 0) {
+            inimigo.receberDano(this.ataqueBase * 1.15);
+        }
+    }
 }

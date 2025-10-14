@@ -16,4 +16,10 @@ public class Targaryen extends Personagem {
         this.posicao = new Posicao(linha, coluna);
         Tabuleiro.tabuleiro[linha][coluna] = "\uD83C\uDFF9";
     }
+
+    @Override
+    public void atacar(Personagem inimigo) {
+        if(inimigo.getVida() > 0) inimigo.receberDano(this.ataqueBase + inimigo.getDefesa());
+    }
+
 }

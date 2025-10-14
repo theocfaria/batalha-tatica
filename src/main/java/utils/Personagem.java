@@ -1,12 +1,13 @@
 package utils;
 
+import entidades.Stark;
 import entidades.Tabuleiro;
 
 import java.sql.SQLOutput;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Personagem {
+public abstract class Personagem {
     protected double vida;
     protected double ataqueBase = 20.0;
     protected double defesaBase = 10.0;
@@ -23,9 +24,13 @@ public class Personagem {
         Tabuleiro.tabuleiro[linha][coluna] = "X";
     }
 
-    public void setVida(double vida) {
+    protected void setVida(double vida) {
         this.vida = vida;
     }
+
+    public double getVida() { return this.vida; }
+
+    public double getDefesa() { return this.defesaBase; }
 
     public void printStatus() {
         System.out.println("Vida: " + this.vida);
@@ -109,7 +114,17 @@ public class Personagem {
 
     public void atacar(Personagem inimigo) {
         if(inimigo.vida > 0) {
-            inimigo.vida -= this.ataqueBase;
+            inimigo.receberDano(this.ataqueBase);
         }
+    }
+
+    public void receberDano(double danoBruto) {
+        double danoFinal = danoBruto - this.defesaBase;
+
+        if (danoFinal < 0) {
+            danoFinal = 0;
+        }
+
+        this.setVida(this.vida - danoFinal);
     }
 }
