@@ -1,6 +1,8 @@
 package utils;
 
 import entidades.Tabuleiro;
+
+import java.util.Objects;
 import java.util.Scanner;
 
 public abstract class Personagem {
@@ -34,6 +36,13 @@ public abstract class Personagem {
         System.out.println("Defesa: " + this.defesaBase);
     }
 
+    private boolean checaColisao(int linha, int coluna){
+        if(Objects.equals(Tabuleiro.tabuleiro[linha][coluna], "")){
+            return false;
+        }
+        return true;
+    }
+    
     public void agir() {
         boolean andou = false;
 
@@ -49,18 +58,35 @@ public abstract class Personagem {
             System.out.println("Digite 'f' para ⚔\uFE0F");
             Scanner scanner = new Scanner(System.in);
             String comando = scanner.next();
+            
+            int lin = this.posicao.linha;
+            int col = this.posicao.coluna;
+            
             switch(comando) {
                 case "w":
-                    if(this.getPosicao().getLinha() == 0){
+                    if(lin == 0){
                         System.out.println("Não é possível andar mais nessa direção.");
                         continue;
                     }
+                    if(checaColisao(lin - 1, col)){
+                        System.out.println("Já existe um personagem nessa casa...");
+                        continue;
+                    }
+
                     Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha - 1, this.getPosicao().coluna);
 
                     break;
 
                 case "a":
+                    if(col == 0){
+                        System.out.println("Não é possível andar mais nessa direção.");
+                        continue;
+                    }
+                    if(checaColisao(lin, col - 1)){
+                        System.out.println("Já existe um personagem nessa casa...");
+                        continue;
+                    }
                     Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha, this.getPosicao().coluna - 1);
 
@@ -68,33 +94,81 @@ public abstract class Personagem {
                     break;
 
                 case "s":
+                    if(lin == 9){
+                        System.out.println("Não é possível andar mais nessa direção.");
+                        continue;
+                    }
+                    if(checaColisao(lin + 1, col)){
+                        System.out.println("Já existe um personagem nessa casa...");
+                        continue;
+                    }
                     Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna);
 
                     break;
 
                 case "d":
+                    if(col == 9){
+                        System.out.println("Não é possível andar mais nessa direção.");
+                        continue;
+                    }
+                    if(checaColisao(lin, col + 1)){
+                        System.out.println("Já existe um personagem nessa casa...");
+                        continue;
+                    }
                     Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha, this.getPosicao().coluna + 1);
 
                     break;
 
                 case "q":
+                    if(lin == 0 || col == 0){
+                        System.out.println("Não é possível andar mais nessa direção.");
+                        continue;
+                    }
+                    if(checaColisao(lin - 1, col - 1)){
+                        System.out.println("Já existe um personagem nessa casa...");
+                        continue;
+                    }
                     Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha - 1, this.getPosicao().coluna - 1);
                     break;
 
                 case "e":
+                    if(lin == 0 || col == 9 ){
+                        System.out.println("Não é possível andar mais nessa direção.");
+                        continue;
+                    }
+                    if(checaColisao(lin - 1, col + 1)){
+                        System.out.println("Já existe um personagem nessa casa...");
+                        continue;
+                    }
                     Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha - 1, this.getPosicao().coluna + 1);
                     break;
 
                 case "z":
+                    if(lin == 9 || col == 0){
+                        System.out.println("Não é possível andar mais nessa direção.");
+                        continue;
+                    }
+                    if(checaColisao(lin + 1, col - 1)){
+                        System.out.println("Já existe um personagem nessa casa...");
+                        continue;
+                    }
                     Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna - 1);
                     break;
 
                 case "c":
+                    if(lin == 9 || this . getPosicao().getColuna() == 9){
+                        System.out.println("Não é possível andar mais nessa direção.");
+                        continue;
+                    }
+                    if(checaColisao(lin + 1, col + 1)){
+                        System.out.println("Já existe um personagem nessa casa...");
+                        continue;
+                    }
                     Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
                     this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna + 1);
                     break;
@@ -105,8 +179,7 @@ public abstract class Personagem {
 
                 default:
                     System.out.println("Comando inválido.");
-                    break;
-
+                    continue;
             }
             andou = true;
         }
