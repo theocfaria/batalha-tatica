@@ -1,16 +1,18 @@
 package entidades;
 
+import java.io.IOException;
+
 public class Tabuleiro {
     public static String[][] tabuleiro;
     public static final int TAMANHO = 10;
-    private static final int LARGURA_CELULA = 6;
+    private static final int LARGURA_CELULA = 5;
 
     public Tabuleiro() {
         tabuleiro = new String[10][10];
 
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++) {
-                tabuleiro[i][j] = "*";
+                tabuleiro[i][j] = "";
             }
         }
     }
@@ -25,6 +27,7 @@ public class Tabuleiro {
                 System.out.print(centralizarTexto(conteudo, LARGURA_CELULA));
                 System.out.print("│");
             }
+
             System.out.println();
             if (i < tabuleiro.length - 1) {
                 desenharLinhaSeparadora('├', '┼', '┤');

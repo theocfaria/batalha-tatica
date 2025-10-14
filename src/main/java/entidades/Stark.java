@@ -12,8 +12,8 @@ public class Stark extends Personagem {
     }
 
     @Override
-    public void setPosicao(Posicao posicao) {
-        this.posicao = posicao;
-        Tabuleiro.tabuleiro[posicao.getLinha()][posicao.getColuna()] = "\uD83D\uDEE1\uFE0F";
+    public void setPosicao(int linha, int coluna) {
+        this.posicao = new Posicao(linha, coluna);
+        Tabuleiro.tabuleiro[linha][coluna] = "\uD83D\uDEE1\uFE0F";
     }
 }
