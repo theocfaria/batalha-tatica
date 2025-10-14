@@ -4,6 +4,7 @@ import entidades.Tabuleiro;
 import java.util.Scanner;
 
 public abstract class Personagem {
+    protected String nomeCasa;
     protected double vida;
     protected double ataqueBase = 20.0;
     protected double defesaBase = 10.0;
@@ -133,4 +134,9 @@ public abstract class Personagem {
     protected boolean checaDistancia(Personagem inimigo) {
         return Posicao.distancia(this.posicao, inimigo.posicao) < this.alcance;
     }
+
+    protected String getNome(){
+        return this.nomeCasa;
+    }
+
 }
