@@ -15,7 +15,7 @@ public class Equipe {
     public Personagem[] integrantes;
     ArrayList <Integer> linhasSorteadas = new ArrayList<>();
     protected int sorteiaLinha;
-    protected int id;
+    public int id;
 
     public Equipe(int id) {
         integrantesVivos = 3;

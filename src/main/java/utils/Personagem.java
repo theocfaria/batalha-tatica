@@ -10,7 +10,7 @@ public abstract class Personagem {
     protected double defesaBase = 10.0;
     protected Posicao posicao;
     protected int alcance;
-    protected Equipe equipe;
+    public Equipe equipe;
 
     public Posicao getPosicao() {
         return posicao;
@@ -145,8 +145,6 @@ public abstract class Personagem {
         } else {
             System.out.println("Inimigo fora do alcance.");
         }
-
-
     }
 
     public void receberDano(double danoBruto) {
