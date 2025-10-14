@@ -35,4 +35,8 @@ public class Posicao {
     }
 
     public int getColuna() { return  this.coluna; }
+
+    public static double distancia(Posicao p1, Posicao p2) {
+        return Math.sqrt(Math.pow(p2.linha - p1.linha, 2.0f) + Math.pow(p2.coluna - p1.coluna, 2.0f));
+    }
 }

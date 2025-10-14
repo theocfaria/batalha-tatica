@@ -110,7 +110,13 @@ public abstract class Personagem {
 
     public void atacar(Personagem inimigo) {
         if(inimigo.vida > 0) {
-            inimigo.receberDano(this.ataqueBase);
+            if(checaDistancia(inimigo))
+                inimigo.receberDano(this.ataqueBase);
+            else
+                System.out.println("Inimigo fora do alcance. ");
+        }
+        else {
+            System.out.println("Inimigo já morreu.");
         }
     }
 
@@ -122,5 +128,9 @@ public abstract class Personagem {
         }
 
         this.setVida(this.vida - danoFinal);
+    }
+
+    protected boolean checaDistancia(Personagem inimigo) {
+        return Posicao.distancia(this.posicao, inimigo.posicao) < this.alcance;
     }
 }
