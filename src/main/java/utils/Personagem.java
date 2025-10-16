@@ -59,8 +59,8 @@ public abstract class Personagem {
             Scanner scanner = new Scanner(System.in);
             String comando = scanner.next();
             
-            int lin = this.posicao.linha;
-            int col = this.posicao.coluna;
+            int lin = this.posicao.getLinha();
+            int col = this.posicao.getColuna();
             
             switch(comando) {
                 case "w":
@@ -73,8 +73,8 @@ public abstract class Personagem {
                         continue;
                     }
 
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
-                    this.setPosicao(this.getPosicao().linha - 1, this.getPosicao().coluna);
+                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(this.getPosicao().getLinha() - 1, this.getPosicao().getColuna());
 
                     break;
 
@@ -87,8 +87,8 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
-                    this.setPosicao(this.getPosicao().linha, this.getPosicao().coluna - 1);
+                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(this.getPosicao().getLinha(), this.getPosicao().getColuna() - 1);
 
 
                     break;
@@ -102,8 +102,8 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
-                    this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna);
+                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna());
 
                     break;
 
@@ -116,8 +116,8 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
-                    this.setPosicao(this.getPosicao().linha, this.getPosicao().coluna + 1);
+                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(this.getPosicao().getLinha(), this.getPosicao().getColuna() + 1);
 
                     break;
 
@@ -130,8 +130,8 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
-                    this.setPosicao(this.getPosicao().linha - 1, this.getPosicao().coluna - 1);
+                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() - 1);
                     break;
 
                 case "e":
@@ -143,8 +143,8 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
-                    this.setPosicao(this.getPosicao().linha - 1, this.getPosicao().coluna + 1);
+                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() + 1);
                     break;
 
                 case "z":
@@ -156,8 +156,8 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
-                    this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna - 1);
+                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() - 1);
                     break;
 
                 case "c":
@@ -169,8 +169,8 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.linha][this.posicao.coluna] = "";
-                    this.setPosicao(this.getPosicao().linha + 1, this.getPosicao().coluna + 1);
+                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() + 1);
                     break;
 
                 // case "f":
