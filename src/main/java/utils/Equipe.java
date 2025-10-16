@@ -16,7 +16,7 @@ public class Equipe {
     public Personagem[] integrantes;
     List<Integer> linhasSorteadas = new ArrayList<>();
     protected int sorteiaLinha;
-    protected int id;
+    public int id;
 
     public Equipe(int id) {
         integrantesVivos = 3;
@@ -78,16 +78,25 @@ public class Equipe {
         }
     }
 
-    public void escolheIntegrante() {
+    public Personagem[] getPersonagem(){
+        return integrantes;
+    }
+
+    public void escolheIntegrante(Equipe equipeInimiga) {
         Scanner sc = new Scanner(System.in);
         Tabuleiro.imprimirTabuleiro();
-        System.out.print("Digite o índice do integrante que deseja mexer: ");
+        System.out.println("Turno da equipe: " + this.id);
+        System.out.println("Digite o índice do integrante que deseja mexer: ");
+        for(int i = 0; i < 3; i++) {
+            if(!getPersonagem()[i].morto)
+                System.out.println("Indice " + i + ": " + getPersonagem()[i].getNome());
+        }
         int escolhido = sc.nextInt();
-        while(escolhido < 0 || escolhido > 2){
+        while(escolhido < 0 || escolhido > 2 || getPersonagem()[escolhido].morto){
             System.out.print("Índice inválido! Digite novamente o índice do integrante que deseja mexer: ");
             escolhido = sc.nextInt();
         }
-        integrantes[escolhido].agir();
+        integrantes[escolhido].agir(equipeInimiga);
     }
 
     public boolean perdeu() {

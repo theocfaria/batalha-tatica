@@ -26,4 +26,9 @@ public class Stark extends Personagem {
 
         this.setVida(this.vida - danoFinal);
     }
+
+    @Override
+    public String getNome(){
+        return "Stark";
+    }
 }

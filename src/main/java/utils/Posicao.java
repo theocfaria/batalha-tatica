@@ -26,7 +26,6 @@ public class Posicao {
     private void setColuna(int coluna) {
         if(coluna < 0 || coluna > Tabuleiro.TAMANHO) {
             System.err.println("Coluna inválida.");
-            return;
         }
         else {
             this.coluna = coluna;
