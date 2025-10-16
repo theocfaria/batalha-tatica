@@ -28,13 +28,13 @@ public class Targaryen extends Personagem {
             System.out.println("O alvo já está derrotado.");
             return;
         }
-        if (checaDistancia(inimigo)) {
+       if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
             inimigo.receberDano(this.ataqueBase  + inimigo.getDefesa());
             System.out.println("Dano causado! Vida restante do inimigo: " + inimigo.getVida());
-        } else {
-            System.out.println("Inimigo fora do alcance.");
-        }
+       } else {
+           System.out.println("Inimigo fora do alcance.");
+       }
     }
 
     @Override

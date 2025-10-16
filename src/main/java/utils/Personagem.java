@@ -115,7 +115,13 @@ public abstract class Personagem {
                 }
 
                 System.out.print("Digite o índice do inimigo: ");
-                int indiceAlvo = scanner.nextInt();
+                int indiceAlvo;
+                indiceAlvo = scanner.nextInt();
+
+                while (indiceAlvo < 0 || indiceAlvo >2) {
+                    System.out.print("Índice inválido! Digite novamente o índice do integrante que deseja atacar: ");
+                    indiceAlvo = scanner.nextInt();
+                }
 
                 if (indiceAlvo >= 0 && indiceAlvo < equipeInimiga.integrantes.length) {
                     Personagem alvo = equipeInimiga.integrantes[indiceAlvo];
