@@ -19,15 +19,6 @@ public class Lannister extends Personagem {
 
     @Override
     public void atacar(Personagem inimigo) {
-        if (inimigo.equipe.id == this.equipe.id) {
-            System.out.println("Você não pode atacar um membro da sua própria equipe!");
-            return;
-        }
-
-        if (inimigo.getVida() <= 0) {
-            System.out.println("O alvo já está derrotado.");
-            return;
-        }
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
             inimigo.receberDano(this.ataqueBase * 1.15);

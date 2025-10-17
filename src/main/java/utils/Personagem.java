@@ -217,25 +217,7 @@ public abstract class Personagem {
         }
     }
 
-    public void atacar(Personagem inimigo) {
-        if (inimigo.equipe.id == this.equipe.id) {
-            System.out.println("Você não pode atacar um membro da sua própria equipe!");
-            return;
-        }
-
-        if (inimigo.getVida() <= 0) {
-            System.out.println("O alvo já está derrotado.");
-            return;
-        }
-        if (checaDistancia(inimigo)) {
-            System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
-            inimigo.receberDano(this.ataqueBase);
-            System.out.println("Dano causado! Vida restante do inimigo: " + inimigo.getVida());
-        } else {
-            System.out.println("Inimigo fora do alcance.");
-        }
-
-    }
+    public void atacar(Personagem inimigo) {}
 
     public void receberDano(double danoBruto) {
         double danoFinal = danoBruto - this.defesaBase;
@@ -252,7 +234,7 @@ public abstract class Personagem {
     }
 
     protected boolean checaDistancia(Personagem inimigo) {
-        return Posicao.distancia(this.posicao, inimigo.posicao) < this.alcance;
+        return Posicao.distancia(this.posicao, inimigo.posicao) <= this.alcance;
     }
 
 

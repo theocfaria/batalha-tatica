@@ -1,7 +1,5 @@
 package entidades;
 
-import java.io.IOException;
-
 public class Tabuleiro {
     public static String[][] tabuleiro;
     public static final int TAMANHO = 10;
