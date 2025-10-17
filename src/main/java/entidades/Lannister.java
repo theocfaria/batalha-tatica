@@ -5,10 +5,11 @@ import utils.Personagem;
 import utils.Posicao;
 
 public class Lannister extends Personagem {
-    public Lannister(Equipe equipe) {
+    public Lannister(Equipe equipe, String nomePersonagem) {
         this.vida = 50.0;
         this.alcance = 2;
         this.equipe = equipe;
+        this.nomePersonagem = nomePersonagem;
     }
 
     @Override
@@ -30,6 +31,11 @@ public class Lannister extends Personagem {
 
     @Override
     public String getNome(){
+        return this.nomePersonagem;
+    }
+
+    @Override
+    public String getNomeCasa(){
         return "Lannister";
     }
 }

@@ -13,7 +13,8 @@ public abstract class Personagem {
     protected int alcance;
     public Equipe equipe;
     public boolean morto = false;
-    private String nomeCasa;
+    protected String nomePersonagem;
+    protected String nomeCasa;
 
     public Posicao getPosicao() {
         return posicao;
@@ -226,7 +227,6 @@ public abstract class Personagem {
         return Posicao.distancia(this.posicao, inimigo.posicao) <= this.alcance;
     }
 
-
     protected void morrer() {
         Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
         this.equipe.integrantesVivos--;
@@ -234,6 +234,10 @@ public abstract class Personagem {
     }
 
     protected String getNome() {
+        return this.nomePersonagem;
+    }
+
+    protected String getNomeCasa() {
         return this.nomeCasa;
     }
 }

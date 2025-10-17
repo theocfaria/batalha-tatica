@@ -43,9 +43,12 @@ public class Equipe {
                 sorteiaLinha = rand.nextInt(10);
             }while(linhasSorteadas.contains(sorteiaLinha));
             linhasSorteadas.add(sorteiaLinha);
+            String nomePersonagem;
             switch (casa) {
                 case 's':
-                    integrantes[i] = new Stark(this);
+                    System.out.println("Informe um nome para seu personagem: ");
+                    nomePersonagem = scanner.next();
+                    integrantes[i] = new Stark(this, nomePersonagem);
 
                     if(this.id==1){
                         integrantes[i].setPosicao(sorteiaLinha, 0);
@@ -56,7 +59,9 @@ public class Equipe {
                     break;
 
                 case 'l':
-                    integrantes[i] = new Lannister(this);
+                    System.out.println("Informe um nome para seu personagem: ");
+                    nomePersonagem = scanner.next();
+                    integrantes[i] = new Lannister(this, nomePersonagem);
                     if(this.id==1){
                         integrantes[i].setPosicao(sorteiaLinha, 0);
                     }else if(this.id==2){
@@ -66,7 +71,9 @@ public class Equipe {
                     break;
 
                 case 't':
-                    integrantes[i] = new Targaryen(this);
+                    System.out.println("Informe um nome para seu personagem: ");
+                    nomePersonagem = scanner.next();
+                    integrantes[i] = new Targaryen(this, nomePersonagem);
                     if(this.id==1){
                         integrantes[i].setPosicao(sorteiaLinha, 0);
                     }else if(this.id==2){
@@ -86,15 +93,28 @@ public class Equipe {
         Scanner sc = new Scanner(System.in);
         Tabuleiro.imprimirTabuleiro();
         System.out.println("Turno da equipe: " + this.id);
-        System.out.println("Digite o índice do integrante que deseja mexer: ");
+       // System.out.println("Digite o índice do integrante que deseja mexer: ");
         for(int i = 0; i < 3; i++) {
-            if(!getPersonagem()[i].morto)
-                System.out.println("Indice " + i + ": " + getPersonagem()[i].getNome());
+            if (!getPersonagem()[i].morto)
+                System.out.println("Indice " + i + ": " + getPersonagem()[i].getNome() + " - " + getPersonagem()[i].getNomeCasa());
         }
-        int escolhido = sc.nextInt();
-        while(escolhido < 0 || escolhido > 2 || getPersonagem()[escolhido].morto){
-            System.out.print("Índice inválido! Digite novamente o índice do integrante que deseja mexer: ");
-            escolhido = sc.nextInt();
+
+        int escolhido = -1;
+        System.out.println("Digite o índice do integrante que deseja mexer: ");
+
+        while(escolhido < 0 || escolhido > 2 || getPersonagem()[escolhido].morto) {
+            String escolha = sc.next();
+
+            try {
+                escolhido = Integer.parseInt(escolha);
+
+                if(escolhido >= 0 && escolhido <= 2 && !getPersonagem()[escolhido].morto){
+                    break;
+                }
+                System.out.println("Entrada inválida. Digite um índice válido");
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Digite um índice válido");
+            }
         }
         integrantes[escolhido].agir(equipeInimiga);
     }
