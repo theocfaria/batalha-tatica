@@ -19,12 +19,7 @@ public abstract class Personagem {
         return posicao;
     }
 
-    public void setPosicao(int linha, int coluna) {
-        if(!this.morto) {
-            this.posicao = new Posicao(linha, coluna);
-            Tabuleiro.tabuleiro[linha][coluna] = "X";
-        }
-    }
+    public void setPosicao(int linha, int coluna) {}
 
     protected void setVida(double vida) {
         this.vida = vida;
@@ -33,12 +28,6 @@ public abstract class Personagem {
     public double getVida() { return this.vida; }
 
     public double getDefesa() { return this.defesaBase; }
-
-    public void printStatus() {
-        System.out.println("Vida: " + this.vida);
-        System.out.println("Ataque: " + this.ataqueBase);
-        System.out.println("Defesa: " + this.defesaBase);
-    }
 
     private boolean checaColisao(int linha, int coluna){
         if(Objects.equals(Tabuleiro.tabuleiro[linha][coluna], "")){
@@ -247,6 +236,4 @@ public abstract class Personagem {
     protected String getNome() {
         return this.nomeCasa;
     }
-
-
 }
