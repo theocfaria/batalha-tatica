@@ -10,6 +10,7 @@ public class Stark extends Personagem {
         this.alcance = 1;
         this.equipe = equipe;
         this.nomePersonagem = nomePersonagem;
+        this.escudo = "\uD83D\uDEE1\uFE0F";
     }
 
     @Override
@@ -26,7 +27,7 @@ public class Stark extends Personagem {
     @Override
     public void setPosicao(int linha, int coluna) {
         this.posicao = new Posicao(linha, coluna);
-        Tabuleiro.tabuleiro[linha][coluna] = "\uD83D\uDEE1\uFE0F";
+        Tabuleiro.tabuleiro[linha][coluna] = this.getEscudo();
     }
 
     @Override

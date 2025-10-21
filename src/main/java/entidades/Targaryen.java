@@ -10,12 +10,13 @@ public class Targaryen extends Personagem {
         this.alcance = 3;
         this.equipe = equipe;
         this.nomePersonagem = nomePersonagem;
+        this.escudo = "\uD83C\uDFF9";
     }
 
     @Override
     public void setPosicao(int linha, int coluna) {
         this.posicao = new Posicao(linha, coluna);
-        Tabuleiro.tabuleiro[linha][coluna] = "\uD83C\uDFF9";
+        Tabuleiro.tabuleiro[linha][coluna] = this.getEscudo();
     }
 
     @Override

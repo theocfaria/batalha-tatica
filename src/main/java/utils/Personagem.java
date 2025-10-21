@@ -15,6 +15,7 @@ public abstract class Personagem {
     public boolean morto = false;
     protected String nomePersonagem;
     protected String nomeCasa;
+    public String escudo;
 
     public Posicao getPosicao() {
         return posicao;
@@ -30,13 +31,14 @@ public abstract class Personagem {
 
     public double getDefesa() { return this.defesaBase; }
 
+    public String getEscudo() { return this.escudo; }
+
     private boolean checaColisao(int linha, int coluna){
         if(Objects.equals(Tabuleiro.tabuleiro[linha][coluna], "")){
             return false;
         }
         return true;
     }
-
 
     public void agir(Equipe equipeInimiga) {
         if(this.morto)

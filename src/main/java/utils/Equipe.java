@@ -95,8 +95,9 @@ public class Equipe {
         System.out.println("Turno da equipe: " + this.id);
        // System.out.println("Digite o índice do integrante que deseja mexer: ");
         for(int i = 0; i < 3; i++) {
-            if (!getPersonagem()[i].morto)
-                System.out.println("Indice " + i + ": " + getPersonagem()[i].getNome() + " - " + getPersonagem()[i].getNomeCasa());
+            if (!getPersonagem()[i].morto){
+                System.out.println("Indice " + i + ": " + getPersonagem()[i].getNome() + " - " + getPersonagem()[i].getNomeCasa() + " - " + getPersonagem()[i].getEscudo());
+            }
         }
 
         int escolhido = -1;

@@ -10,12 +10,13 @@ public class Lannister extends Personagem {
         this.alcance = 2;
         this.equipe = equipe;
         this.nomePersonagem = nomePersonagem;
+        this.escudo = "\uD83D\uDDE1\uFE0F";
     }
 
     @Override
     public void setPosicao(int linha, int coluna) {
         this.posicao = new Posicao(linha, coluna);
-        Tabuleiro.tabuleiro[linha][coluna] = "\uD83D\uDDE1\uFE0F";
+        Tabuleiro.tabuleiro[linha][coluna] = this.getEscudo();
     }
 
     @Override
