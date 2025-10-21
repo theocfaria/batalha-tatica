@@ -37,6 +37,10 @@ public class Stark extends Personagem {
         if (danoFinal < 0) danoFinal = 0;
 
         this.setVida(this.vida - danoFinal);
+        if(this.getVida() <= 0) {
+            this.morrer();
+            this.setVida(0);
+        }
     }
 
     @Override
