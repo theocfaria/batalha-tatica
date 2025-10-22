@@ -2,6 +2,8 @@ package utils;
 
 import entidades.Tabuleiro;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -173,33 +175,39 @@ public abstract class Personagem {
                     this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() + 1);
                     break;
 
-            case "f":
-                System.out.println("Escolha um inimigo para atacar:");
-                for (int i = 0; i < equipeInimiga.integrantes.length; i++) {
-                    Personagem inimigo = equipeInimiga.integrantes[i];
-                    if (inimigo.getVida() > 0) {
-                        System.out.println(i + ": " + inimigo.getClass().getSimpleName() +
-                                " (Vida: " + inimigo.getVida() +
-                                ", Posição: [" + inimigo.getPosicao().getLinha() + "," + inimigo.getPosicao().getColuna() + "])");
+                case "f":
+                    System.out.println("Escolha um inimigo para atacar:");
+                    Map<Integer, Boolean> atacaveis = new HashMap<>();
+                    int qntAtacaveis = 0;
+                    for (int i = 0; i < equipeInimiga.integrantes.length; i++) {
+                        Personagem inimigo = equipeInimiga.integrantes[i];
+                        atacaveis.put(i, inimigo.getVida() > 0 && checaDistancia(inimigo));
+                        if (inimigo.getVida() > 0 && checaDistancia(inimigo)) {
+                            qntAtacaveis++;
+                            System.out.println(i + ": " + inimigo.getClass().getSimpleName() +
+                                    " (Vida: " + inimigo.getVida() +
+                                    ", Posição: [" + inimigo.getPosicao().getLinha() + "," + inimigo.getPosicao().getColuna() + "])");
+                        }
                     }
-                }
+                    if(qntAtacaveis == 0){
+                        System.out.println("Não há nenhum inimigo em sua área de ataque, realize outra ação.");
+                        continue;
+                    }
 
-                System.out.print("Digite o índice do inimigo: ");
-                int indiceAlvo;
-                indiceAlvo = scanner.nextInt();
-
-                while (indiceAlvo < 0 || indiceAlvo >2) {
-                    System.out.print("Índice inválido! Digite novamente o índice do integrante que deseja atacar: ");
+                    System.out.print("Digite o índice do inimigo: ");
+                    int indiceAlvo;
                     indiceAlvo = scanner.nextInt();
-                }
 
-                if (indiceAlvo >= 0 && indiceAlvo < equipeInimiga.integrantes.length) {
+                    while (!atacaveis.containsKey(indiceAlvo) || !atacaveis.get(indiceAlvo)) {
+                        System.out.print("Índice inválido! Digite novamente o índice do integrante que deseja atacar: ");
+                        indiceAlvo = scanner.nextInt();
+                    }
+
                     Personagem alvo = equipeInimiga.integrantes[indiceAlvo];
                     atacar(alvo);
-                } else {
-                    System.out.println("Índice inválido.");
-                }
-                break;
+
+                    break;
+
 
                 default:
                     System.out.println("Comando inválido.");
