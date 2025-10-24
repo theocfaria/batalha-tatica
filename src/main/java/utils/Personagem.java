@@ -31,6 +31,8 @@ public abstract class Personagem {
 
     public double getVida() { return this.vida; }
 
+    public String getApresentacao() {return this.nomePersonagem + "da casa" + this.nomeCasa;}
+
     public double getDefesa() { return this.defesaBase; }
 
     public String getEscudo() { return this.escudo; }
