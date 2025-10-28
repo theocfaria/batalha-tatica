@@ -10,6 +10,7 @@ public class Lannister extends Personagem {
         this.alcance = 2;
         this.equipe = equipe;
         this.nomePersonagem = nomePersonagem;
+        this.nomeCasa = "Lannister";
         this.escudo = "\uD83D\uDDE1\uFE0F";
     }
 
@@ -20,14 +21,16 @@ public class Lannister extends Personagem {
     }
 
     @Override
-    public void atacar(Personagem inimigo) {
+    public double atacar(Personagem inimigo) {
+        double danoCausado = 0;
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
-            inimigo.receberDano(this.ataqueBase * 1.15);
+            danoCausado = inimigo.receberDano(this.ataqueBase * 1.15);
             System.out.println("Dano causado! Vida restante do inimigo: " + inimigo.getVida());
         } else {
             System.out.println("Inimigo fora do alcance.");
         }
+        return danoCausado;
     }
 
     @Override

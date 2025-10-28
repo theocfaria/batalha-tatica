@@ -1,6 +1,7 @@
 package utils;
 
 import entidades.Tabuleiro;
+import replay.Jogada;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,11 +32,19 @@ public abstract class Personagem {
 
     public double getVida() { return this.vida; }
 
-    public String getApresentacao() {return this.nomePersonagem + "da casa" + this.nomeCasa;}
+    public String getApresentacao() {return this.nomePersonagem + " da casa " + this.nomeCasa;}
 
     public double getDefesa() { return this.defesaBase; }
 
     public String getEscudo() { return this.escudo; }
+
+    public String getNomeCasa(){
+        return this.nomeCasa;
+    }
+
+    protected String getNome() {
+        return this.nomePersonagem;
+    }
 
     private boolean checaColisao(int linha, int coluna){
         if(Objects.equals(Tabuleiro.tabuleiro[linha][coluna], "")){
@@ -44,9 +53,9 @@ public abstract class Personagem {
         return true;
     }
 
-    public void agir(Equipe equipeInimiga) {
+    public Jogada agir(Equipe equipeInimiga) {
         if(this.morto)
-            return;
+            return null;
 
         boolean andou = false;
 
@@ -79,8 +88,7 @@ public abstract class Personagem {
 
                     Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(this.getPosicao().getLinha() - 1, this.getPosicao().getColuna());
-
-                    break;
+                    return new Jogada(0, this, "andou", null, "para o norte");
 
                 case "a":
                     if(col == 0){
@@ -93,9 +101,8 @@ public abstract class Personagem {
                     }
                     Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(this.getPosicao().getLinha(), this.getPosicao().getColuna() - 1);
+                    return new Jogada(0, this, "andou", null, "para o oeste");
 
-
-                    break;
 
                 case "s":
                     if(lin == 9){
@@ -108,8 +115,8 @@ public abstract class Personagem {
                     }
                     Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna());
+                    return new Jogada(0, this, "andou", null, "para o sul");
 
-                    break;
 
                 case "d":
                     if(col == 9){
@@ -122,8 +129,8 @@ public abstract class Personagem {
                     }
                     Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(this.getPosicao().getLinha(), this.getPosicao().getColuna() + 1);
+                    return new Jogada(0, this, "andou", null, "para a leste");
 
-                    break;
 
                 case "q":
                     if(lin == 0 || col == 0){
@@ -136,7 +143,8 @@ public abstract class Personagem {
                     }
                     Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() - 1);
-                    break;
+                    return new Jogada(0, this, "andou", null, "para o noroeste");
+
 
                 case "e":
                     if(lin == 0 || col == 9 ){
@@ -149,7 +157,7 @@ public abstract class Personagem {
                     }
                     Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() + 1);
-                    break;
+                    return new Jogada(0, this, "andou", null, "para o nordeste");
 
                 case "z":
                     if(lin == 9 || col == 0){
@@ -162,7 +170,7 @@ public abstract class Personagem {
                     }
                     Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() - 1);
-                    break;
+                    return new Jogada(0, this, "andou", null, "para o sudoeste");
 
                 case "c":
                     if(lin == 9 || this . getPosicao().getColuna() == 9){
@@ -175,7 +183,7 @@ public abstract class Personagem {
                     }
                     Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() + 1);
-                    break;
+                    return new Jogada(0, this, "andou", null, "para o sudeste");
 
                 case "f":
                     System.out.println("Escolha um inimigo para atacar:");
@@ -206,22 +214,24 @@ public abstract class Personagem {
                     }
 
                     Personagem alvo = equipeInimiga.integrantes[indiceAlvo];
-                    atacar(alvo);
+                    Double danoCausado = atacar(alvo);
 
-                    break;
+                    return new Jogada(0, this, "atacou", alvo, danoCausado.toString());
 
 
                 default:
                     System.out.println("Comando inválido.");
                     continue;
             }
-            andou = true;
         }
+        return null;
     }
 
-    public void atacar(Personagem inimigo) {}
+    public double atacar(Personagem inimigo) {
+        return 0;
+    }
 
-    public void receberDano(double danoBruto) {
+    public double receberDano(double danoBruto) {
         double danoFinal = danoBruto - this.defesaBase;
 
         if (danoFinal < 0) {
@@ -233,6 +243,8 @@ public abstract class Personagem {
             this.morrer();
             this.setVida(0);
         }
+
+        return danoFinal;
     }
 
     protected boolean checaDistancia(Personagem inimigo) {
@@ -245,11 +257,4 @@ public abstract class Personagem {
         this.morto = true;
     }
 
-    protected String getNome() {
-        return this.nomePersonagem;
-    }
-
-    protected String getNomeCasa() {
-        return this.nomeCasa;
-    }
 }

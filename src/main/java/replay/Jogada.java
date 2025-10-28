@@ -1,5 +1,6 @@
 package replay;
 
+import utils.Equipe;
 import utils.Personagem;
 
 public class Jogada {
@@ -10,7 +11,7 @@ public class Jogada {
     private Personagem alvo;
     private String resultado;
 
-    public void Jogada(int turno, Personagem autor, String acao, Personagem alvo, String resultado) {
+    public Jogada(int turno, Personagem autor, String acao, Personagem alvo, String resultado) {
 
         this.turno = turno;
         this.autor = autor;
@@ -21,10 +22,35 @@ public class Jogada {
     }
 
     public String getInfo(){
-        if(this.acao == "atacou") {
+        if("atacou".equals(this.acao) && this.alvo != null) {
             return "No " + this.turno + "° turno, " + this.autor.getApresentacao() + " atacou " +
                     this.alvo.getApresentacao() + ", causando " + this.resultado + " de dano.";
         }
-        return "No " + this.turno + "° turno, " + this.autor.getApresentacao() + " andou para" + this.resultado;
+        return "No " + this.turno + "° turno, " + this.autor.getApresentacao() + " andou " + this.resultado;
+    }
+
+    public void setTurno(int turno) {
+        this.turno = turno;
+    }
+
+    public int getTurno() {
+        return turno;
+    }
+
+    public Personagem getAutor() {
+        return autor;
+    }
+
+    public String getAcao() {
+        return acao;
+    }
+
+    public Personagem getAlvo() {
+        return alvo;
+    }
+
+    public String getResultado() {
+        return resultado;
     }
 }
+

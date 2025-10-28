@@ -10,6 +10,7 @@ public class Targaryen extends Personagem {
         this.alcance = 3;
         this.equipe = equipe;
         this.nomePersonagem = nomePersonagem;
+        this.nomeCasa = "Targaryen";
         this.escudo = "\uD83C\uDFF9";
     }
 
@@ -20,23 +21,20 @@ public class Targaryen extends Personagem {
     }
 
     @Override
-    public void atacar(Personagem inimigo) {
-       if (checaDistancia(inimigo)) {
+    public double atacar(Personagem inimigo) {
+        double danoCausado = 0;
+        if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
-            inimigo.receberDano(this.ataqueBase  + inimigo.getDefesa());
+            danoCausado = inimigo.receberDano(this.ataqueBase + inimigo.getDefesa());
             System.out.println("Dano causado! Vida restante do inimigo: " + inimigo.getVida());
-       } else {
-           System.out.println("Inimigo fora do alcance.");
-       }
+        } else {
+            System.out.println("Inimigo fora do alcance.");
+        }
+        return danoCausado;
     }
 
     @Override
-    public String getNome(){
+    public String getNome() {
         return this.nomePersonagem;
-    }
-
-    @Override
-    public String getNomeCasa(){
-        return "Targaryen";
     }
 }

@@ -10,18 +10,21 @@ public class Stark extends Personagem {
         this.alcance = 1;
         this.equipe = equipe;
         this.nomePersonagem = nomePersonagem;
+        this.nomeCasa = "Stark";
         this.escudo = "\uD83D\uDEE1\uFE0F";
     }
 
     @Override
-    public void atacar(Personagem inimigo) {
+    public double atacar(Personagem inimigo) {
+        double danoCausado = 0;
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
-            inimigo.receberDano(this.ataqueBase);
+            danoCausado = inimigo.receberDano(this.ataqueBase);
             System.out.println("Dano causado! Vida restante do inimigo: " + inimigo.getVida());
         } else {
             System.out.println("Inimigo fora do alcance.");
         }
+        return danoCausado;
     }
 
     @Override
@@ -31,7 +34,7 @@ public class Stark extends Personagem {
     }
 
     @Override
-    public void receberDano(double danoBruto) {
+    public double receberDano(double danoBruto) {
         double danoReduzido = danoBruto * 0.8;
 
         double danoFinal = danoReduzido - this.defesaBase;
@@ -42,15 +45,12 @@ public class Stark extends Personagem {
             this.morrer();
             this.setVida(0);
         }
+
+        return danoFinal;
     }
 
     @Override
     public String getNome(){
         return this.nomePersonagem;
-    }
-
-    @Override
-    public String getNomeCasa(){
-        return "Stark";
     }
 }

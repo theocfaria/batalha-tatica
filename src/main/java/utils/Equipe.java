@@ -9,6 +9,7 @@ import entidades.Lannister;
 import entidades.Stark;
 import entidades.Tabuleiro;
 import entidades.Targaryen;
+import replay.Jogada;
 
 public class Equipe {
     private Random rand = new Random();
@@ -85,31 +86,32 @@ public class Equipe {
         }
     }
 
-    public Personagem[] getPersonagem(){
-        return integrantes;
+
+    public Personagem getPersonagem(int idx){
+        return integrantes[idx];
     }
 
-    public void escolheIntegrante(Equipe equipeInimiga) {
+    public Jogada escolheIntegrante(Equipe equipeInimiga) {
         Scanner sc = new Scanner(System.in);
         Tabuleiro.imprimirTabuleiro();
         System.out.println("Turno da equipe: " + this.id);
        // System.out.println("Digite o índice do integrante que deseja mexer: ");
         for(int i = 0; i < 3; i++) {
-            if (!getPersonagem()[i].morto){
-                System.out.println("Indice " + i + ": " + getPersonagem()[i].getNome() + " - " + getPersonagem()[i].getNomeCasa() + " - " + getPersonagem()[i].getEscudo());
+            if (!getPersonagem(i).morto){
+                System.out.println("Indice " + i + ": " + getPersonagem(i).getNome() + " - " + getPersonagem(i).getNomeCasa() + " - " + getPersonagem(i).getEscudo());
             }
         }
 
         int escolhido = -1;
         System.out.println("Digite o índice do integrante que deseja mexer: ");
 
-        while(escolhido < 0 || escolhido > 2 || getPersonagem()[escolhido].morto) {
+        while(escolhido < 0 || escolhido > 2 || getPersonagem(escolhido).morto) {
             String escolha = sc.next();
 
             try {
                 escolhido = Integer.parseInt(escolha);
 
-                if(escolhido >= 0 && escolhido <= 2 && !getPersonagem()[escolhido].morto){
+                if(escolhido >= 0 && escolhido <= 2 && !getPersonagem(escolhido).morto){
                     break;
                 }
                 System.out.println("Entrada inválida. Digite um índice válido");
@@ -117,7 +119,8 @@ public class Equipe {
                 System.out.println("Entrada inválida. Digite um índice válido");
             }
         }
-        integrantes[escolhido].agir(equipeInimiga);
+        Jogada jogadaAtual = getPersonagem(escolhido).agir(equipeInimiga);
+        return jogadaAtual;
     }
 
     public boolean perdeu() {
