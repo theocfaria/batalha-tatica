@@ -52,7 +52,7 @@ public class Main {
             replay.controleReplay();
         }
 
-        System.out.println("Encerrando o programa.");
+        System.out.println("Encerrando o programa...");
         sc.close();
     }
 }

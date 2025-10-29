@@ -15,12 +15,28 @@ public class Replay {
         Scanner teclado = new Scanner(System.in);
 
         while(true) {
-            System.out.println("-- Menu de Replay --");
-            System.out.println("Turno atual: " + turnoAtual);
-            System.out.println("1 - Ver turno anterior");
-            System.out.println("2 - Ver próximo turno");
-            System.out.println("3 - Encerrar replay");
-            System.out.println("Selecione a próxima ação: ");
+            if(turnoAtual == turnos.size() - 1) {
+                System.out.println("-- Menu de Replay --");
+                System.out.println("Turno atual: " + turnoAtual);
+                System.out.println("1 - Ver turno anterior");
+                System.out.println("3 - Encerrar replay");
+                System.out.println("Selecione a próxima ação: ");
+            }
+            else if(turnoAtual == 0) {
+                System.out.println("-- Menu de Replay --");
+                System.out.println("Turno atual: " + turnoAtual);
+                System.out.println("2 - Ver próximo turno");
+                System.out.println("3 - Encerrar replay");
+                System.out.println("Selecione a próxima ação: ");
+            }
+            else {
+                System.out.println("-- Menu de Replay --");
+                System.out.println("Turno atual: " + turnoAtual);
+                System.out.println("1 - Ver turno anterior");
+                System.out.println("2 - Ver próximo turno");
+                System.out.println("3 - Encerrar replay");
+                System.out.println("Selecione a próxima ação: ");
+            }
 
             int acao = 0;
 
