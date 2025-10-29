@@ -1,5 +1,6 @@
 package replay;
 
+import entidades.Tabuleiro;
 import utils.Equipe;
 import utils.Personagem;
 
@@ -10,15 +11,27 @@ public class Jogada {
     private String acao;
     private Personagem alvo;
     private String resultado;
+    public String[][] tabuleiro;
 
-    public Jogada(int turno, Personagem autor, String acao, Personagem alvo, String resultado) {
-
+    public Jogada(int turno, Personagem autor, String acao, Personagem alvo, String resultado, Tabuleiro tabuleiro) {
+        this.tabuleiro = copiaTabuleiro(tabuleiro);
         this.turno = turno;
         this.autor = autor;
         this.acao = acao;
         this.alvo = alvo;
         this.resultado = resultado;
+    }
 
+    private String[][] copiaTabuleiro(Tabuleiro tabuleiro) {
+        int linhas = tabuleiro.tabuleiro.length;
+        int colunas = tabuleiro.tabuleiro[0].length;
+        String[][] copia = new String[linhas][colunas];
+
+        for (int i = 0; i < linhas; i++) {
+            copia[i] = tabuleiro.tabuleiro[i].clone();
+        }
+
+        return copia;
     }
 
     public String getInfo(){

@@ -19,14 +19,14 @@ public class Equipe {
     protected int sorteiaLinha;
     public int id;
 
-    public Equipe(int id) {
+    public Equipe(Tabuleiro tabuleiro, int id) {
         integrantesVivos = 3;
         integrantes = new Personagem[3];
         this.id = id;
-        selecionarEquipe();
+        selecionarEquipe(tabuleiro);
     }
 
-    protected void selecionarEquipe() {
+    protected void selecionarEquipe(Tabuleiro tabuleiro) {
 
         System.out.println("Identificação equipe: "+ this.id);
         Scanner scanner = new Scanner(System.in);
@@ -52,9 +52,9 @@ public class Equipe {
                     integrantes[i] = new Stark(this, nomePersonagem);
 
                     if(this.id==1){
-                        integrantes[i].setPosicao(sorteiaLinha, 0);
+                        integrantes[i].setPosicao(tabuleiro, sorteiaLinha, 0);
                     }else if(this.id==2){
-                        integrantes[i].setPosicao(sorteiaLinha, 9);
+                        integrantes[i].setPosicao(tabuleiro, sorteiaLinha, 9);
                     }
                     i++;
                     break;
@@ -64,9 +64,9 @@ public class Equipe {
                     nomePersonagem = scanner.next();
                     integrantes[i] = new Lannister(this, nomePersonagem);
                     if(this.id==1){
-                        integrantes[i].setPosicao(sorteiaLinha, 0);
+                        integrantes[i].setPosicao(tabuleiro, sorteiaLinha, 0);
                     }else if(this.id==2){
-                        integrantes[i].setPosicao(sorteiaLinha, 9);
+                        integrantes[i].setPosicao(tabuleiro, sorteiaLinha, 9);
                     }
                     i++;
                     break;
@@ -76,9 +76,9 @@ public class Equipe {
                     nomePersonagem = scanner.next();
                     integrantes[i] = new Targaryen(this, nomePersonagem);
                     if(this.id==1){
-                        integrantes[i].setPosicao(sorteiaLinha, 0);
+                        integrantes[i].setPosicao(tabuleiro, sorteiaLinha, 0);
                     }else if(this.id==2){
-                        integrantes[i].setPosicao(sorteiaLinha, 9);
+                        integrantes[i].setPosicao(tabuleiro, sorteiaLinha, 9);
                     }
                     i++;
                     break;
@@ -91,20 +91,16 @@ public class Equipe {
         return integrantes[idx];
     }
 
-    public Jogada escolheIntegrante(Equipe equipeInimiga) {
+    public int escolheIntegrante() {
         Scanner sc = new Scanner(System.in);
-        Tabuleiro.imprimirTabuleiro();
-        System.out.println("Turno da equipe: " + this.id);
-       // System.out.println("Digite o índice do integrante que deseja mexer: ");
         for(int i = 0; i < 3; i++) {
             if (!getPersonagem(i).morto){
-                System.out.println("Indice " + i + ": " + getPersonagem(i).getNome() + " - " + getPersonagem(i).getNomeCasa() + " - " + getPersonagem(i).getEscudo());
+                System.out.println("Índice " + i + ": " + getPersonagem(i).getNome() + " - " + "[" + getPersonagem(i).getPosicao().getLinha() + ", " + getPersonagem(i).getPosicao().getColuna() + "] " + " - " +  getPersonagem(i).getEscudo());
             }
         }
 
         int escolhido = -1;
         System.out.println("Digite o índice do integrante que deseja mexer: ");
-
         while(escolhido < 0 || escolhido > 2 || getPersonagem(escolhido).morto) {
             String escolha = sc.next();
 
@@ -119,8 +115,7 @@ public class Equipe {
                 System.out.println("Entrada inválida. Digite um índice válido");
             }
         }
-        Jogada jogadaAtual = getPersonagem(escolhido).agir(equipeInimiga);
-        return jogadaAtual;
+        return escolhido;
     }
 
     public boolean perdeu() {

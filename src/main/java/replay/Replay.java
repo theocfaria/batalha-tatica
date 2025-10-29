@@ -1,15 +1,16 @@
 package replay;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import entidades.Tabuleiro;
+
+import java.util.*;
 
 public class Replay {
 
-    public Map<Integer, Jogada> turnos = new HashMap<>();
+    Tabuleiro tabuleiro = new Tabuleiro();
+    public List<Jogada> turnos = new ArrayList<>();
     private int turnoAtual = 0;
 
-    public void controleReplay(){
+    public void controleReplay() {
 
         Scanner teclado = new Scanner(System.in);
 
@@ -23,9 +24,11 @@ public class Replay {
 
             int acao = 0;
 
-            try{
+            tabuleiro.tabuleiro = turnos.get(turnoAtual).tabuleiro;
+
+            try {
                 acao = teclado.nextInt();
-            } catch(Exception e){
+            } catch(Exception e) {
                 System.out.println("Entrada inválida.");
                 teclado.next();
                 continue;
@@ -35,6 +38,8 @@ public class Replay {
                 System.out.println("Ação inválida, selecione novamente...");
                 continue;
             }
+
+            tabuleiro.imprimirTabuleiro();
 
             switch (acao){
                 case 1:
@@ -49,12 +54,12 @@ public class Replay {
         }
     }
 
-    public void adicionaTurno(int contagemTurno, Jogada rodadaAtual){
-        this.turnos.put(contagemTurno, rodadaAtual);
+    public void adicionaTurno(Jogada rodadaAtual){
+        this.turnos.add(rodadaAtual);
     }
 
     private void passarTurno() {
-        if (this.turnoAtual >= turnos.size()) {
+        if (this.turnoAtual >= turnos.size() - 1) {
             System.out.println(">> Fim do replay. Não há próximos turnos.");
             return;
         }

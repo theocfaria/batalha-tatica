@@ -14,12 +14,11 @@ public class Stark extends Personagem {
         this.escudo = "\uD83D\uDEE1\uFE0F";
     }
 
-    @Override
-    public double atacar(Personagem inimigo) {
+    public double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
         double danoCausado = 0;
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
-            danoCausado = inimigo.receberDano(this.ataqueBase);
+            danoCausado = inimigo.receberDano(tabuleiro, this.ataqueBase);
             System.out.println("Dano causado! Vida restante do inimigo: " + inimigo.getVida());
         } else {
             System.out.println("Inimigo fora do alcance.");
@@ -28,13 +27,7 @@ public class Stark extends Personagem {
     }
 
     @Override
-    public void setPosicao(int linha, int coluna) {
-        this.posicao = new Posicao(linha, coluna);
-        Tabuleiro.tabuleiro[linha][coluna] = this.getEscudo();
-    }
-
-    @Override
-    public double receberDano(double danoBruto) {
+    public double receberDano(Tabuleiro tabuleiro, double danoBruto) {
         double danoReduzido = danoBruto * 0.8;
 
         double danoFinal = danoReduzido - this.defesaBase;
@@ -42,7 +35,7 @@ public class Stark extends Personagem {
 
         this.setVida(this.vida - danoFinal);
         if(this.getVida() <= 0) {
-            this.morrer();
+            this.morrer(tabuleiro);
             this.setVida(0);
         }
 

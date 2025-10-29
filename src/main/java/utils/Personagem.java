@@ -24,7 +24,10 @@ public abstract class Personagem {
         return posicao;
     }
 
-    public void setPosicao(int linha, int coluna) {}
+    public void setPosicao(Tabuleiro tabuleiro, int linha, int coluna) {
+        this.posicao = new Posicao(tabuleiro, linha, coluna);
+        tabuleiro.tabuleiro[linha][coluna] = this.getEscudo();
+    }
 
     protected void setVida(double vida) {
         this.vida = vida;
@@ -46,14 +49,14 @@ public abstract class Personagem {
         return this.nomePersonagem;
     }
 
-    private boolean checaColisao(int linha, int coluna){
-        if(Objects.equals(Tabuleiro.tabuleiro[linha][coluna], "")){
+    private boolean checaColisao(Tabuleiro tabuleiro, int linha, int coluna){
+        if(Objects.equals(tabuleiro.tabuleiro[linha][coluna], "")){
             return false;
         }
         return true;
     }
 
-    public Jogada agir(Equipe equipeInimiga) {
+    public Jogada agir(Tabuleiro tabuleiro, Equipe equipeInimiga) {
         if(this.morto)
             return null;
 
@@ -81,27 +84,27 @@ public abstract class Personagem {
                         System.out.println("Não é possível andar mais nessa direção.");
                         continue;
                     }
-                    if(checaColisao(lin - 1, col)){
+                    if(checaColisao(tabuleiro, lin - 1, col)){
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
 
-                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
-                    this.setPosicao(this.getPosicao().getLinha() - 1, this.getPosicao().getColuna());
-                    return new Jogada(0, this, "andou", null, "para o norte");
+                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(tabuleiro, this.getPosicao().getLinha() - 1, this.getPosicao().getColuna());
+                    return new Jogada(0, this, "andou", null, "para o norte", tabuleiro);
 
                 case "a":
                     if(col == 0){
                         System.out.println("Não é possível andar mais nessa direção.");
                         continue;
                     }
-                    if(checaColisao(lin, col - 1)){
+                    if(checaColisao(tabuleiro, lin, col - 1)){
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
-                    this.setPosicao(this.getPosicao().getLinha(), this.getPosicao().getColuna() - 1);
-                    return new Jogada(0, this, "andou", null, "para o oeste");
+                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(tabuleiro, this.getPosicao().getLinha(), this.getPosicao().getColuna() - 1);
+                    return new Jogada(0, this, "andou", null, "para o oeste", tabuleiro);
 
 
                 case "s":
@@ -109,13 +112,13 @@ public abstract class Personagem {
                         System.out.println("Não é possível andar mais nessa direção.");
                         continue;
                     }
-                    if(checaColisao(lin + 1, col)){
+                    if(checaColisao(tabuleiro, lin + 1, col)){
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
-                    this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna());
-                    return new Jogada(0, this, "andou", null, "para o sul");
+                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(tabuleiro, this.getPosicao().getLinha() + 1, this.getPosicao().getColuna());
+                    return new Jogada(0, this, "andou", null, "para o sul", tabuleiro);
 
 
                 case "d":
@@ -123,13 +126,13 @@ public abstract class Personagem {
                         System.out.println("Não é possível andar mais nessa direção.");
                         continue;
                     }
-                    if(checaColisao(lin, col + 1)){
+                    if(checaColisao(tabuleiro, lin, col + 1)){
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
-                    this.setPosicao(this.getPosicao().getLinha(), this.getPosicao().getColuna() + 1);
-                    return new Jogada(0, this, "andou", null, "para a leste");
+                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(tabuleiro, this.getPosicao().getLinha(), this.getPosicao().getColuna() + 1);
+                    return new Jogada(0, this, "andou", null, "para a leste", tabuleiro);
 
 
                 case "q":
@@ -137,13 +140,13 @@ public abstract class Personagem {
                         System.out.println("Não é possível andar mais nessa direção.");
                         continue;
                     }
-                    if(checaColisao(lin - 1, col - 1)){
+                    if(checaColisao(tabuleiro, lin - 1, col - 1)){
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
-                    this.setPosicao(this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() - 1);
-                    return new Jogada(0, this, "andou", null, "para o noroeste");
+                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(tabuleiro, this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() - 1);
+                    return new Jogada(0, this, "andou", null, "para o noroeste", tabuleiro);
 
 
                 case "e":
@@ -151,39 +154,39 @@ public abstract class Personagem {
                         System.out.println("Não é possível andar mais nessa direção.");
                         continue;
                     }
-                    if(checaColisao(lin - 1, col + 1)){
+                    if(checaColisao(tabuleiro, lin - 1, col + 1)){
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
-                    this.setPosicao(this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() + 1);
-                    return new Jogada(0, this, "andou", null, "para o nordeste");
+                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(tabuleiro, this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() + 1);
+                    return new Jogada(0, this, "andou", null, "para o nordeste", tabuleiro);
 
                 case "z":
                     if(lin == 9 || col == 0){
                         System.out.println("Não é possível andar mais nessa direção.");
                         continue;
                     }
-                    if(checaColisao(lin + 1, col - 1)){
+                    if(checaColisao(tabuleiro, lin + 1, col - 1)){
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
-                    this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() - 1);
-                    return new Jogada(0, this, "andou", null, "para o sudoeste");
+                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(tabuleiro, this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() - 1);
+                    return new Jogada(0, this, "andou", null, "para o sudoeste", tabuleiro);
 
                 case "c":
                     if(lin == 9 || this . getPosicao().getColuna() == 9){
                         System.out.println("Não é possível andar mais nessa direção.");
                         continue;
                     }
-                    if(checaColisao(lin + 1, col + 1)){
+                    if(checaColisao(tabuleiro, lin + 1, col + 1)){
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
-                    this.setPosicao(this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() + 1);
-                    return new Jogada(0, this, "andou", null, "para o sudeste");
+                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    this.setPosicao(tabuleiro, this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() + 1);
+                    return new Jogada(0, this, "andou", null, "para o sudeste", tabuleiro);
 
                 case "f":
                     System.out.println("Escolha um inimigo para atacar:");
@@ -214,9 +217,9 @@ public abstract class Personagem {
                     }
 
                     Personagem alvo = equipeInimiga.integrantes[indiceAlvo];
-                    Double danoCausado = atacar(alvo);
+                    Double danoCausado = atacar(tabuleiro, alvo);
 
-                    return new Jogada(0, this, "atacou", alvo, danoCausado.toString());
+                    return new Jogada(0, this, "atacou", alvo, danoCausado.toString(), tabuleiro);
 
 
                 default:
@@ -227,11 +230,9 @@ public abstract class Personagem {
         return null;
     }
 
-    public double atacar(Personagem inimigo) {
-        return 0;
-    }
+    private Double atacar(Tabuleiro tabuleiro, Personagem alvo) { return 0.0; }
 
-    public double receberDano(double danoBruto) {
+    public double receberDano(Tabuleiro tabuleiro, double danoBruto) {
         double danoFinal = danoBruto - this.defesaBase;
 
         if (danoFinal < 0) {
@@ -240,7 +241,7 @@ public abstract class Personagem {
 
         this.setVida(this.vida - danoFinal);
         if(this.getVida() <= 0) {
-            this.morrer();
+            this.morrer(tabuleiro);
             this.setVida(0);
         }
 
@@ -251,8 +252,8 @@ public abstract class Personagem {
         return Posicao.distancia(this.posicao, inimigo.posicao) <= this.alcance;
     }
 
-    protected void morrer() {
-        Tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+    protected void morrer(Tabuleiro tabuleiro) {
+        tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
         this.equipe.integrantesVivos--;
         this.morto = true;
     }

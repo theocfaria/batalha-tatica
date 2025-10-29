@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
         Tabuleiro tabuleiro = new Tabuleiro();
 
@@ -16,22 +15,25 @@ public class Main {
         int contaTurno = 0;
 
         System.out.println("--- Configuração da Equipe 1 ---");
-        Equipe equipe1 = new Equipe(1);
+        Equipe equipe1 = new Equipe(tabuleiro, 1);
 
         System.out.println("\n--- Configuração da Equipe 2 ---");
-        Equipe equipe2 = new Equipe(2);
+        Equipe equipe2 = new Equipe(tabuleiro, 2);
 
-        for (int turno = 0; !equipe1.perdeu() && !equipe2.perdeu() && turno < 5; turno++) {
+        for (int turno = 0; !equipe1.perdeu() && !equipe2.perdeu() && turno <= 2; turno++) {
+            tabuleiro.imprimirTabuleiro();
             if (turno % 2 == 0) {
                 System.out.println("\n--- TURNO DA EQUIPE 1 ---");
-                jogadaAtual = equipe1.escolheIntegrante(equipe2);
+                int escolhido = equipe1.escolheIntegrante();
+                jogadaAtual = equipe1.getPersonagem(escolhido).agir(tabuleiro, equipe2);
             } else {
                 System.out.println("\n--- TURNO DA EQUIPE 2 ---");
-                jogadaAtual= equipe2.escolheIntegrante(equipe1);
+                int escolhido = equipe2.escolheIntegrante();
+                jogadaAtual = equipe2.getPersonagem(escolhido).agir(tabuleiro, equipe1);
             }
             contaTurno++;
             jogadaAtual.setTurno(contaTurno);
-            replay.adicionaTurno(contaTurno, jogadaAtual);
+            replay.adicionaTurno(jogadaAtual);
         }
 
         if (equipe1.perdeu()) {

@@ -1,9 +1,9 @@
 package entidades;
 
 public class Tabuleiro {
-    public static String[][] tabuleiro;
-    public static final int TAMANHO = 10;
-    private static final int LARGURA_CELULA = 5;
+    public String[][] tabuleiro;
+    public final int TAMANHO = 10;
+    private final int LARGURA_CELULA = 5;
 
     public Tabuleiro() {
         tabuleiro = new String[10][10];
@@ -15,7 +15,7 @@ public class Tabuleiro {
         }
     }
 
-    public static void imprimirTabuleiro() {
+    public void imprimirTabuleiro() {
         desenharLinhaSeparadora('┌', '┬', '┐');
 
         for (int i = 0; i < tabuleiro.length; i++) {
@@ -35,7 +35,7 @@ public class Tabuleiro {
         }
     }
 
-    private static void desenharLinhaSeparadora(char esq, char meio, char dir) {
+    private void desenharLinhaSeparadora(char esq, char meio, char dir) {
         System.out.print(esq);
         for (int j = 0; j < TAMANHO; j++) {
             System.out.print("─".repeat(LARGURA_CELULA));
@@ -46,7 +46,7 @@ public class Tabuleiro {
         System.out.println(dir);
     }
 
-    private static int getLarguraVisual(String texto) {
+    private int getLarguraVisual(String texto) {
         if (texto == null || texto.isEmpty()) {
             return 0;
         }
@@ -70,7 +70,7 @@ public class Tabuleiro {
     }
 
 
-    private static String centralizarTexto(String texto, int largura) {
+    private String centralizarTexto(String texto, int largura) {
         if (texto == null) {
             texto = "";
         }
