@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         Tabuleiro tabuleiro = new Tabuleiro();
 
         Replay replay = new Replay();
@@ -52,7 +52,14 @@ public class Main {
             replay.controleReplay();
         }
 
-        System.out.println("Encerrando o programa...");
+        System.out.print("Encerrando o programa");
+        Thread.sleep(600);
+        System.out.print(".");
+        Thread.sleep(600);
+        System.out.print(".");
+        Thread.sleep(600);
+        System.out.print(".");
+        Thread.sleep(300);
         sc.close();
     }
 }
