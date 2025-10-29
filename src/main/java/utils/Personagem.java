@@ -257,5 +257,4 @@ public abstract class Personagem {
         this.equipe.integrantesVivos--;
         this.morto = true;
     }
-
 }
