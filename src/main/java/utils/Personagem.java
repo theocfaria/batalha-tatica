@@ -58,7 +58,7 @@ public abstract class Personagem {
 
 
 
-    public Jogada agir(Tabuleiro tabuleiro, Equipe equipeInimiga) {
+    public Jogada agir(Tabuleiro tabuleiro, Equipe equipeInimiga) throws InterruptedException {
         if(this.morto)
             return null;
 
@@ -200,7 +200,7 @@ public abstract class Personagem {
                         if (inimigo.getVida() > 0 && checaDistancia(inimigo)) {
                             qntAtacaveis++;
                             String vidaFormatada = String.format("%.2f", inimigo.getVida());
-                            System.out.println(i + ": " + inimigo.getClass().getSimpleName() +
+                            System.out.println(i + ": " + inimigo.getNome() +
                                     " (Vida: " + vidaFormatada +
                                     ", Posição: [" + inimigo.getPosicao().getLinha() + "," + inimigo.getPosicao().getColuna() + "])");
                         }
@@ -221,6 +221,8 @@ public abstract class Personagem {
 
                     Personagem alvo = equipeInimiga.integrantes[indiceAlvo];
                     Double danoCausado = atacar(tabuleiro, alvo);
+
+                    Thread.sleep(2000);
 
                     return new Jogada(this, "atacou", alvo, danoCausado.toString(), tabuleiro);
 

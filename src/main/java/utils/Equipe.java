@@ -40,7 +40,7 @@ public class Equipe {
             while (i < 3) {
                 int escolhaCasa = rand.nextInt(casas.size());
                 String casa = casas.get(escolhaCasa);
-                String[] nomes = {"Theo", "Murilo, Ryan", "Julia", "Gleiph", "Rogério", "Bighouse", "Clarisse", "Russo", "José", "Arnaldo", "Amanda", "Jorge", "Cristiano", "Pekka", "Zulu", "Evander", "Malaquias", "Cebolinha", "Pelé", "Rayane", "Ronaldo", "Totó", "Popó", "Wanderley", "Charles", "Tobias", "Diego", "Diego-MarquesLOKT", "Vilma", "Atílio"};
+                String[] nomes = {"Theo", "Murilo", "Ryan", "Julia", "Gleiph", "Rogério", "Bighouse", "Clarisse", "Russo", "José", "Arnaldo", "Amanda", "Jorge", "Cristiano", "Pekka", "Zulu", "Evander", "Malaquias", "Cebolinha", "Pelé", "Rayane", "Ronaldo", "Totó", "Popó", "Wanderley", "Charles", "Tobias", "Diego", "Diego-MarquesLOKT", "Vilma", "Atílio"};
                 int escolhaNome = rand.nextInt(nomes.length);
                 do {
                     sorteiaLinha = rand.nextInt(10);
