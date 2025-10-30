@@ -14,7 +14,7 @@ public class Stark extends Personagem {
         this.escudo = "\uD83D\uDEE1\uFE0F";
     }
 
-    public double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
+    public Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
         double danoCausado = 0;
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");

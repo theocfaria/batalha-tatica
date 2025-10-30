@@ -1,3 +1,4 @@
+import entidades.Bot;
 import replay.Jogada;
 import replay.Replay;
 import utils.Equipe;
@@ -35,7 +36,7 @@ public class Main {
         preJogo.setTurno(0);
         replay.adicionaTurno(preJogo);
 
-        for (int turno = 1; !equipe1.perdeu() && !equipe2.perdeu() && turno < 5; turno++) {
+        for (int turno = 1; !equipe1.perdeu() && !equipe2.perdeu(); turno++) {
             tabuleiro.imprimirTabuleiro();
             if (turno % 2 != 0) {
                 System.out.println("\n--- TURNO DA EQUIPE 1 ---");
@@ -43,8 +44,13 @@ public class Main {
                 jogadaAtual = equipe1.getPersonagem(escolhido).agir(tabuleiro, equipe2);
             } else {
                 System.out.println("\n--- TURNO DA EQUIPE 2 ---");
-                int escolhido = equipe2.escolheIntegrante();
-                jogadaAtual = equipe2.getPersonagem(escolhido).agir(tabuleiro, equipe1);
+                if(equipe2.getId() == 3){
+                    jogadaAtual = Bot.joga(tabuleiro, equipe2, equipe1);
+                }
+                else {
+                    int escolhido = equipe2.escolheIntegrante();
+                    jogadaAtual = equipe2.getPersonagem(escolhido).agir(tabuleiro, equipe1);
+                }
             }
             jogadaAtual.setTurno(turno);
             replay.adicionaTurno(jogadaAtual);

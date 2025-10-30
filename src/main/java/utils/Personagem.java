@@ -49,12 +49,14 @@ public abstract class Personagem {
         return this.nomePersonagem;
     }
 
-    private boolean checaColisao(Tabuleiro tabuleiro, int linha, int coluna){
+    public boolean checaColisao(Tabuleiro tabuleiro, int linha, int coluna){
         if(Objects.equals(tabuleiro.tabuleiro[linha][coluna], "")){
             return false;
         }
         return true;
     }
+
+
 
     public Jogada agir(Tabuleiro tabuleiro, Equipe equipeInimiga) {
         if(this.morto)
@@ -197,8 +199,9 @@ public abstract class Personagem {
                         atacaveis.put(i, inimigo.getVida() > 0 && checaDistancia(inimigo));
                         if (inimigo.getVida() > 0 && checaDistancia(inimigo)) {
                             qntAtacaveis++;
+                            String vidaFormatada = String.format("%.2f", inimigo.getVida());
                             System.out.println(i + ": " + inimigo.getClass().getSimpleName() +
-                                    " (Vida: " + inimigo.getVida() +
+                                    " (Vida: " + vidaFormatada +
                                     ", Posição: [" + inimigo.getPosicao().getLinha() + "," + inimigo.getPosicao().getColuna() + "])");
                         }
                     }
@@ -230,7 +233,7 @@ public abstract class Personagem {
         return null;
     }
 
-    private Double atacar(Tabuleiro tabuleiro, Personagem alvo) { return 0.0; }
+    public Double atacar(Tabuleiro tabuleiro, Personagem alvo) { return 0.0; }
 
     public double receberDano(Tabuleiro tabuleiro, double danoBruto) {
         double danoFinal = danoBruto - this.defesaBase;
@@ -248,7 +251,28 @@ public abstract class Personagem {
         return danoFinal;
     }
 
-    protected boolean checaDistancia(Personagem inimigo) {
+    public Personagem checaAlcance(Equipe equipeInimiga) {
+        Personagem maisPerto = null;
+        for (Personagem inimigo : equipeInimiga.getPersonagens()) {
+            if (inimigo.morto) {
+                continue;
+            }
+
+            if (checaDistancia(inimigo)) {
+                if (maisPerto == null) {
+                    maisPerto = inimigo;
+                } else {
+                    if (Posicao.distancia(this.posicao, inimigo.posicao) < Posicao.distancia(this.posicao, maisPerto.posicao)) {
+                        maisPerto = inimigo;
+                    }
+                }
+            }
+        }
+
+        return maisPerto;
+    }
+
+    public boolean checaDistancia(Personagem inimigo) {
         return Posicao.distancia(this.posicao, inimigo.posicao) <= this.alcance;
     }
 

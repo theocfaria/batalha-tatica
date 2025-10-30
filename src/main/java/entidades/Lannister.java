@@ -14,12 +14,13 @@ public class Lannister extends Personagem {
         this.escudo = "\uD83D\uDDE1\uFE0F";
     }
 
-    public double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
+    public Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
         double danoCausado = 0;
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
             danoCausado = inimigo.receberDano(tabuleiro,this.ataqueBase * 1.15);
-            System.out.println("Dano causado! Vida restante do inimigo: " + inimigo.getVida());
+            String vidaFormatada = String.format("%.2f", inimigo.getVida());
+            System.out.println("Dano causado! Vida restante do inimigo: " + vidaFormatada);
         } else {
             System.out.println("Inimigo fora do alcance.");
         }

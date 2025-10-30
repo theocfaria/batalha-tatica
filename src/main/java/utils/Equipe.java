@@ -17,7 +17,11 @@ public class Equipe {
     public Personagem[] integrantes;
     List<Integer> linhasSorteadas = new ArrayList<>();
     protected int sorteiaLinha;
-    public int id;
+    private int id;
+
+    public int getId(){
+        return this.id;
+    }
 
     public Equipe(Tabuleiro tabuleiro, int id) {
         integrantesVivos = 3;
@@ -26,7 +30,7 @@ public class Equipe {
         selecionarEquipe(tabuleiro);
     }
 
-    protected void selecionarEquipe(Tabuleiro tabuleiro) {
+    public void selecionarEquipe(Tabuleiro tabuleiro) {
         if (this.id == 3) {
             List<String> casas = new ArrayList<>();
             casas.add("s");
@@ -129,6 +133,8 @@ public class Equipe {
     public Personagem getPersonagem(int idx){
         return integrantes[idx];
     }
+
+    public Personagem[] getPersonagens() { return integrantes; }
 
     public int escolheIntegrante() {
         Scanner sc = new Scanner(System.in);
