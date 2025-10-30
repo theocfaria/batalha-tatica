@@ -8,16 +8,28 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
+        Scanner sc = new Scanner(System.in);
         Tabuleiro tabuleiro = new Tabuleiro();
+        Equipe equipe1, equipe2;
 
         Replay replay = new Replay();
         Jogada jogadaAtual, preJogo;
 
-        System.out.println("--- Configuração da Equipe 1 ---");
-        Equipe equipe1 = new Equipe(tabuleiro, 1);
+        System.out.println("Você deseja jogar com um amigo ou com o computador? Digite 1 para jogar com amigos, qualquer outra coisa pra jogar com o computador.");
+        String opcao = sc.nextLine();
+        if(opcao.equals("1")) {
+            System.out.println("--- Configuração da Equipe 1 ---");
+            equipe1 = new Equipe(tabuleiro, 1);
 
-        System.out.println("\n--- Configuração da Equipe 2 ---");
-        Equipe equipe2 = new Equipe(tabuleiro, 2);
+            System.out.println("\n--- Configuração da Equipe 2 ---");
+            equipe2 = new Equipe(tabuleiro, 2);
+        }
+        else {
+            System.out.println("--- Configuração da Equipe 1 ---");
+            equipe1 = new Equipe(tabuleiro, 1);
+
+            equipe2 = new Equipe(tabuleiro, 3);
+        }
 
         preJogo = new Jogada(tabuleiro);
         preJogo.setTurno(0);
@@ -46,7 +58,6 @@ public class Main {
 
         System.out.println("\n--- FIM DE JOGO ---");
         System.out.println("Deseja ver o replay? (s/n)");
-        Scanner sc = new Scanner(System.in);
         String resposta = sc.next();
 
         if (resposta.toLowerCase().equals("s")){
