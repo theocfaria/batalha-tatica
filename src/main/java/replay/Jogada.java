@@ -6,20 +6,23 @@ import utils.Personagem;
 
 public class Jogada {
 
-    private int turno;
+    private int turno = 0;
     private Personagem autor;
     private String acao;
     private Personagem alvo;
     private String resultado;
     public String[][] tabuleiro;
 
-    public Jogada(int turno, Personagem autor, String acao, Personagem alvo, String resultado, Tabuleiro tabuleiro) {
+    public Jogada(Personagem autor, String acao, Personagem alvo, String resultado, Tabuleiro tabuleiro) {
         this.tabuleiro = copiaTabuleiro(tabuleiro);
-        this.turno = turno;
         this.autor = autor;
         this.acao = acao;
         this.alvo = alvo;
         this.resultado = resultado;
+    }
+
+    public Jogada(Tabuleiro tabuleiro) {
+        this.tabuleiro = copiaTabuleiro(tabuleiro);
     }
 
     private String[][] copiaTabuleiro(Tabuleiro tabuleiro) {
@@ -34,7 +37,10 @@ public class Jogada {
         return copia;
     }
 
-    public String getInfo(){
+    public String getInfo() {
+        if(this.turno == 0){
+            return "";
+        }
         if("atacou".equals(this.acao) && this.alvo != null) {
             return "No " + this.turno + "° turno, " + this.autor.getApresentacao() + " atacou " +
                     this.alvo.getApresentacao() + ", causando " + this.resultado + " de dano.";

@@ -15,6 +15,9 @@ public class Replay {
         Scanner teclado = new Scanner(System.in);
 
         while(true) {
+            tabuleiro.tabuleiro = turnos.get(turnoAtual).tabuleiro;
+            tabuleiro.imprimirTabuleiro();
+
             if(turnoAtual == turnos.size() - 1) {
                 System.out.println("-- Menu de Replay --");
                 System.out.println("Turno atual: " + turnoAtual);
@@ -40,8 +43,6 @@ public class Replay {
 
             int acao = 0;
 
-            tabuleiro.tabuleiro = turnos.get(turnoAtual).tabuleiro;
-
             try {
                 acao = teclado.nextInt();
             } catch(Exception e) {
@@ -55,8 +56,6 @@ public class Replay {
                 continue;
             }
 
-            tabuleiro.imprimirTabuleiro();
-
             switch (acao){
                 case 1:
                     voltarTurno();
@@ -67,6 +66,9 @@ public class Replay {
                 case 3:
                     return;
             }
+
+            Jogada j = turnos.get(this.turnoAtual);
+            System.out.println(">> " + j.getInfo());
         }
     }
 
@@ -80,18 +82,14 @@ public class Replay {
             return;
         }
         this.turnoAtual++;
-        Jogada j = turnos.get(this.turnoAtual);
-        System.out.println(">> " + j.getInfo());
     }
 
     private void voltarTurno() {
-        if (this.turnoAtual <= 1) {
+        if (this.turnoAtual < 1) {
             System.out.println(">> Início do replay. Não há turnos anteriores.");
             return;
         }
         this.turnoAtual--;
-        Jogada j = turnos.get(this.turnoAtual);
-        System.out.println(">> " + j.getInfo());
     }
 
 }

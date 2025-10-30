@@ -1,6 +1,5 @@
 TODO LIST:
-- mostrar o tabuleiro original com as peças recèm-alocadas no início do replay
+
 - checar o encapsulamento dos métodos
 - o bot inteiro
 - arrumar as classes dentro dos pacotes
--

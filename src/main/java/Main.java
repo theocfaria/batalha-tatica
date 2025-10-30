@@ -11,8 +11,7 @@ public class Main {
         Tabuleiro tabuleiro = new Tabuleiro();
 
         Replay replay = new Replay();
-        Jogada jogadaAtual;
-        int contaTurno = 0;
+        Jogada jogadaAtual, preJogo;
 
         System.out.println("--- Configuração da Equipe 1 ---");
         Equipe equipe1 = new Equipe(tabuleiro, 1);
@@ -20,9 +19,13 @@ public class Main {
         System.out.println("\n--- Configuração da Equipe 2 ---");
         Equipe equipe2 = new Equipe(tabuleiro, 2);
 
-        for (int turno = 0; !equipe1.perdeu() && !equipe2.perdeu() && turno <= 2; turno++) {
+        preJogo = new Jogada(tabuleiro);
+        preJogo.setTurno(0);
+        replay.adicionaTurno(preJogo);
+
+        for (int turno = 1; !equipe1.perdeu() && !equipe2.perdeu() && turno < 5; turno++) {
             tabuleiro.imprimirTabuleiro();
-            if (turno % 2 == 0) {
+            if (turno % 2 != 0) {
                 System.out.println("\n--- TURNO DA EQUIPE 1 ---");
                 int escolhido = equipe1.escolheIntegrante();
                 jogadaAtual = equipe1.getPersonagem(escolhido).agir(tabuleiro, equipe2);
@@ -31,8 +34,7 @@ public class Main {
                 int escolhido = equipe2.escolheIntegrante();
                 jogadaAtual = equipe2.getPersonagem(escolhido).agir(tabuleiro, equipe1);
             }
-            contaTurno++;
-            jogadaAtual.setTurno(contaTurno);
+            jogadaAtual.setTurno(turno);
             replay.adicionaTurno(jogadaAtual);
         }
 

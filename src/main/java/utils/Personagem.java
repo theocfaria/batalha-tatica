@@ -91,7 +91,7 @@ public abstract class Personagem {
 
                     tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() - 1, this.getPosicao().getColuna());
-                    return new Jogada(0, this, "andou", null, "para o norte", tabuleiro);
+                    return new Jogada( this, "andou", null, "para o norte", tabuleiro);
 
                 case "a":
                     if(col == 0){
@@ -104,7 +104,7 @@ public abstract class Personagem {
                     }
                     tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha(), this.getPosicao().getColuna() - 1);
-                    return new Jogada(0, this, "andou", null, "para o oeste", tabuleiro);
+                    return new Jogada(this, "andou", null, "para o oeste", tabuleiro);
 
 
                 case "s":
@@ -118,7 +118,7 @@ public abstract class Personagem {
                     }
                     tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() + 1, this.getPosicao().getColuna());
-                    return new Jogada(0, this, "andou", null, "para o sul", tabuleiro);
+                    return new Jogada(this, "andou", null, "para o sul", tabuleiro);
 
 
                 case "d":
@@ -132,7 +132,7 @@ public abstract class Personagem {
                     }
                     tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha(), this.getPosicao().getColuna() + 1);
-                    return new Jogada(0, this, "andou", null, "para a leste", tabuleiro);
+                    return new Jogada(this, "andou", null, "para a leste", tabuleiro);
 
 
                 case "q":
@@ -146,7 +146,7 @@ public abstract class Personagem {
                     }
                     tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() - 1);
-                    return new Jogada(0, this, "andou", null, "para o noroeste", tabuleiro);
+                    return new Jogada(this, "andou", null, "para o noroeste", tabuleiro);
 
 
                 case "e":
@@ -160,7 +160,7 @@ public abstract class Personagem {
                     }
                     tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() + 1);
-                    return new Jogada(0, this, "andou", null, "para o nordeste", tabuleiro);
+                    return new Jogada(this, "andou", null, "para o nordeste", tabuleiro);
 
                 case "z":
                     if(lin == 9 || col == 0){
@@ -173,7 +173,7 @@ public abstract class Personagem {
                     }
                     tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() - 1);
-                    return new Jogada(0, this, "andou", null, "para o sudoeste", tabuleiro);
+                    return new Jogada(this, "andou", null, "para o sudoeste", tabuleiro);
 
                 case "c":
                     if(lin == 9 || this . getPosicao().getColuna() == 9){
@@ -186,7 +186,7 @@ public abstract class Personagem {
                     }
                     tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() + 1);
-                    return new Jogada(0, this, "andou", null, "para o sudeste", tabuleiro);
+                    return new Jogada(this, "andou", null, "para o sudeste", tabuleiro);
 
                 case "f":
                     System.out.println("Escolha um inimigo para atacar:");
@@ -219,7 +219,7 @@ public abstract class Personagem {
                     Personagem alvo = equipeInimiga.integrantes[indiceAlvo];
                     Double danoCausado = atacar(tabuleiro, alvo);
 
-                    return new Jogada(0, this, "atacou", alvo, danoCausado.toString(), tabuleiro);
+                    return new Jogada(this, "atacou", alvo, danoCausado.toString(), tabuleiro);
 
 
                 default:
