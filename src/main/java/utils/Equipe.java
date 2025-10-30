@@ -139,8 +139,10 @@ public class Equipe {
     public int escolheIntegrante() {
         Scanner sc = new Scanner(System.in);
         for(int i = 0; i < 3; i++) {
+
             if (!getPersonagem(i).morto){
-                System.out.println("Índice " + i + ": " + getPersonagem(i).getNome() + " - " + "[" + getPersonagem(i).getPosicao().getLinha() + ", " + getPersonagem(i).getPosicao().getColuna() + "] " + " - " +  getPersonagem(i).getEscudo());
+                String vidaFormatada = String.format("%.2f", getPersonagem(i).getVida());
+                System.out.println("Índice " + i + ": " + getPersonagem(i).getNome() + " - " + "[" + getPersonagem(i).getPosicao().getLinha() + ", " + getPersonagem(i).getPosicao().getColuna() + "] " + " - " +  getPersonagem(i).getEscudo() + " - " + "[Vida: " + vidaFormatada + "]");
             }
         }
 

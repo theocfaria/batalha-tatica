@@ -45,7 +45,7 @@ public abstract class Personagem {
         return this.nomeCasa;
     }
 
-    protected String getNome() {
+    public String getNome() {
         return this.nomePersonagem;
     }
 

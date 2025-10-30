@@ -12,8 +12,18 @@ import java.util.Random;
 public class Bot {
 
     public static Jogada joga(Tabuleiro tabuleiro, Equipe equipe, Equipe equipeInimiga){
+        for(int i = 0; i < 3; i++) {
+            if (!equipe.getPersonagem(i).morto){
+                String vidaFormatada = String.format("%.2f", equipe.getPersonagem(i).getVida());
+                System.out.println("Índice " + i + ": " + equipe.getPersonagem(i).getNome() + " - " + "[" + equipe.getPersonagem(i).getPosicao().getLinha() + ", " + equipe.getPersonagem(i).getPosicao().getColuna() + "] " + " - " +  equipe.getPersonagem(i).getEscudo() + " - " + "[Vida: " + vidaFormatada + "]");
+            }
+        }
         Random rand = new Random();
-        int idxPersonagem = rand.nextInt(3);
+        int idxPersonagem;
+        do{
+            idxPersonagem = rand.nextInt(3);
+        }while(equipe.getPersonagem(idxPersonagem).morto);
+
         Personagem personagemAtual = equipe.getPersonagem(idxPersonagem);
         return escolheAcao(personagemAtual ,tabuleiro, equipeInimiga);
     }

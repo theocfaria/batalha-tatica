@@ -17,7 +17,7 @@ public class Lannister extends Personagem {
     public Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
         double danoCausado = 0;
         if (checaDistancia(inimigo)) {
-            System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
+            System.out.println("Atacando " + inimigo.getNome() + "!");
             danoCausado = inimigo.receberDano(tabuleiro,this.ataqueBase * 1.15);
             String vidaFormatada = String.format("%.2f", inimigo.getVida());
             System.out.println("Dano causado! Vida restante do inimigo: " + vidaFormatada);

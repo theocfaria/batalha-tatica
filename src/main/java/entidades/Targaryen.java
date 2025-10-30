@@ -7,7 +7,7 @@ import utils.Posicao;
 public class Targaryen extends Personagem {
     public Targaryen(Equipe equipe, String nomePersonagem) {
         this.vida = 45.0;
-        this.alcance = 3;
+        this.alcance = 9;
         this.equipe = equipe;
         this.nomePersonagem = nomePersonagem;
         this.nomeCasa = "Targaryen";
@@ -17,7 +17,7 @@ public class Targaryen extends Personagem {
     public Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
         double danoCausado = 0;
         if (checaDistancia(inimigo)) {
-            System.out.println("Atacando " + inimigo.getClass().getSimpleName() + "!");
+            System.out.println("Atacando " + inimigo.getNome() + "!");
             danoCausado = inimigo.receberDano(tabuleiro,this.ataqueBase + inimigo.getDefesa());
             System.out.println("Dano causado! Vida restante do inimigo: " + inimigo.getVida());
         } else {
