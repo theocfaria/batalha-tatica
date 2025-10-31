@@ -1,7 +1,7 @@
 # ⚔️ A Batalha Tática das Casas de Westeros ⚔️
 
 ![Java](https://img.shields.io/badge/Java-JDK_21-blue.svg?logo=openjdk)
-![Maven](https://img.shields.io/badge/Maven-Apache-red.svg?logo=apachemaven)
+![Maven](https://img.shields.io/badge/Maven-red.svg?logo=apachemaven)
 
 Bem-vindo ao campo de batalha de Westeros! Este é um jogo de estratégia e combate tático por turnos, inspirado no universo de *Game of Thrones*, onde as grandes casas lutam pelo controle.
 
