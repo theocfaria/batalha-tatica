@@ -1,17 +1,15 @@
 package replay;
 
-import entidades.Tabuleiro;
-import utils.Equipe;
-import utils.Personagem;
+import utils.Tabuleiro;
+import entidades.Personagem;
 
 public class Jogada {
-
     private int turno = 0;
     private Personagem autor;
     private String acao;
     private Personagem alvo;
     private String resultado;
-    public String[][] tabuleiro;
+    protected String[][] tabuleiro;
 
     public Jogada(Personagem autor, String acao, Personagem alvo, String resultado, Tabuleiro tabuleiro) {
         this.tabuleiro = copiaTabuleiro(tabuleiro);
@@ -26,12 +24,12 @@ public class Jogada {
     }
 
     private String[][] copiaTabuleiro(Tabuleiro tabuleiro) {
-        int linhas = tabuleiro.tabuleiro.length;
-        int colunas = tabuleiro.tabuleiro[0].length;
+        int linhas = tabuleiro.getTabuleiro().length;
+        int colunas = tabuleiro.getTabuleiro()[0].length;
         String[][] copia = new String[linhas][colunas];
 
         for (int i = 0; i < linhas; i++) {
-            copia[i] = tabuleiro.tabuleiro[i].clone();
+            copia[i] = tabuleiro.getTabuleiro()[i].clone();
         }
 
         return copia;
@@ -50,26 +48,6 @@ public class Jogada {
 
     public void setTurno(int turno) {
         this.turno = turno;
-    }
-
-    public int getTurno() {
-        return turno;
-    }
-
-    public Personagem getAutor() {
-        return autor;
-    }
-
-    public String getAcao() {
-        return acao;
-    }
-
-    public Personagem getAlvo() {
-        return alvo;
-    }
-
-    public String getResultado() {
-        return resultado;
     }
 }
 

@@ -1,10 +1,13 @@
 package entidades;
 
 import utils.Equipe;
-import utils.Personagem;
-import utils.Posicao;
+import utils.Tabuleiro;
 
 public class Lannister extends Personagem {
+    public String getNome(){
+        return this.nomePersonagem;
+    }
+
     public Lannister(Equipe equipe, String nomePersonagem) {
         this.vida = 50.0;
         this.alcance = 2;
@@ -14,7 +17,8 @@ public class Lannister extends Personagem {
         this.escudo = "\uD83D\uDDE1\uFE0F";
     }
 
-    public Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
+    @Override
+    protected Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
         double danoCausado = 0;
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getNome() + "!");
@@ -25,15 +29,5 @@ public class Lannister extends Personagem {
             System.out.println("Inimigo fora do alcance.");
         }
         return danoCausado;
-    }
-
-    @Override
-    public String getNome(){
-        return this.nomePersonagem;
-    }
-
-    @Override
-    public String getNomeCasa(){
-        return "Lannister";
     }
 }

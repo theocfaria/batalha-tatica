@@ -1,13 +1,13 @@
 package replay;
 
-import entidades.Tabuleiro;
+import utils.Tabuleiro;
 
 import java.util.*;
 
 public class Replay {
 
     Tabuleiro tabuleiro = new Tabuleiro();
-    public List<Jogada> turnos = new ArrayList<>();
+    private List<Jogada> turnos = new ArrayList<>();
     private int turnoAtual = 0;
 
     public void controleReplay() {
@@ -15,7 +15,7 @@ public class Replay {
         Scanner teclado = new Scanner(System.in);
 
         while(true) {
-            tabuleiro.tabuleiro = turnos.get(turnoAtual).tabuleiro;
+            tabuleiro.setTabuleiro(turnos.get(turnoAtual).tabuleiro);
             tabuleiro.imprimirTabuleiro();
 
             if(turnoAtual == turnos.size() - 1) {
@@ -91,5 +91,4 @@ public class Replay {
         }
         this.turnoAtual--;
     }
-
 }

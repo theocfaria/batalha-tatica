@@ -1,20 +1,19 @@
 package entidades;
 
 import utils.Equipe;
-import utils.Personagem;
-import utils.Posicao;
+import utils.Tabuleiro;
 
 public class Targaryen extends Personagem {
     public Targaryen(Equipe equipe, String nomePersonagem) {
         this.vida = 45.0;
-        this.alcance = 9;
+        this.alcance = 3;
         this.equipe = equipe;
         this.nomePersonagem = nomePersonagem;
         this.nomeCasa = "Targaryen";
         this.escudo = "\uD83C\uDFF9";
     }
 
-    public Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
+    protected Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
         double danoCausado = 0;
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getNome() + "!");

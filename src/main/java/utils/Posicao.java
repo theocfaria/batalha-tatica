@@ -1,5 +1,4 @@
 package utils;
-import entidades.Tabuleiro;
 
 public class Posicao {
     private int linha;

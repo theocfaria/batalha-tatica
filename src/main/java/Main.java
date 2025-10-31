@@ -2,7 +2,7 @@ import entidades.Bot;
 import replay.Jogada;
 import replay.Replay;
 import utils.Equipe;
-import entidades.Tabuleiro;
+import utils.Tabuleiro;
 
 import java.io.IOException;
 import java.util.Scanner;

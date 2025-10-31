@@ -1,7 +1,9 @@
-package utils;
+package entidades;
 
-import entidades.Tabuleiro;
 import replay.Jogada;
+import utils.Equipe;
+import utils.Posicao;
+import utils.Tabuleiro;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,54 +11,93 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public abstract class Personagem {
+    private boolean morto = false;
+    private Posicao posicao;
     protected double vida;
     protected double ataqueBase = 20.0;
     protected double defesaBase = 10.0;
-    protected Posicao posicao;
     protected int alcance;
-    public Equipe equipe;
-    public boolean morto = false;
     protected String nomePersonagem;
     protected String nomeCasa;
+    public Equipe equipe;
     public String escudo;
 
-    public Posicao getPosicao() {
-        return posicao;
-    }
+    public boolean isMorto() { return this.morto; }
+
+    public Posicao getPosicao() { return posicao; }
 
     public void setPosicao(Tabuleiro tabuleiro, int linha, int coluna) {
         this.posicao = new Posicao(tabuleiro, linha, coluna);
-        tabuleiro.tabuleiro[linha][coluna] = this.getEscudo();
+        tabuleiro.getTabuleiro()[linha][coluna] = this.getEscudo();
     }
 
-    protected void setVida(double vida) {
-        this.vida = vida;
-    }
+    protected void setVida(double vida) { this.vida = vida; }
 
     public double getVida() { return this.vida; }
 
-    public String getApresentacao() {return this.nomePersonagem + " da casa " + this.nomeCasa;}
+    public String getApresentacao() { return this.nomePersonagem + " da casa " + this.nomeCasa; }
 
     public double getDefesa() { return this.defesaBase; }
 
     public String getEscudo() { return this.escudo; }
 
-    public String getNomeCasa(){
-        return this.nomeCasa;
-    }
-
-    public String getNome() {
-        return this.nomePersonagem;
-    }
+    public String getNome() { return this.nomePersonagem; }
 
     public boolean checaColisao(Tabuleiro tabuleiro, int linha, int coluna){
-        if(Objects.equals(tabuleiro.tabuleiro[linha][coluna], "")){
+        if(Objects.equals(tabuleiro.getTabuleiro()[linha][coluna], "")){
             return false;
         }
         return true;
     }
 
+    protected Double atacar(Tabuleiro tabuleiro, Personagem alvo) { return 0.0; }
 
+    protected double receberDano(Tabuleiro tabuleiro, double danoBruto) {
+        double danoFinal = danoBruto - this.defesaBase;
+
+        if (danoFinal < 0) {
+            danoFinal = 0;
+        }
+
+        this.setVida(this.vida - danoFinal);
+        if(this.getVida() <= 0) {
+            this.morrer(tabuleiro);
+            this.setVida(0);
+        }
+
+        return danoFinal;
+    }
+
+    protected Personagem checaAlcance(Equipe equipeInimiga) {
+        Personagem maisPerto = null;
+        for (Personagem inimigo : equipeInimiga.getPersonagens()) {
+            if (inimigo.morto) {
+                continue;
+            }
+
+            if (checaDistancia(inimigo)) {
+                if (maisPerto == null) {
+                    maisPerto = inimigo;
+                } else {
+                    if (Posicao.distancia(this.posicao, inimigo.posicao) < Posicao.distancia(this.posicao, maisPerto.posicao)) {
+                        maisPerto = inimigo;
+                    }
+                }
+            }
+        }
+
+        return maisPerto;
+    }
+
+    protected boolean checaDistancia(Personagem inimigo) {
+        return Posicao.distancia(this.posicao, inimigo.posicao) <= this.alcance;
+    }
+
+    protected void morrer(Tabuleiro tabuleiro) {
+        tabuleiro.getTabuleiro()[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+        this.equipe.diminuiIntegrantes();
+        this.morto = true;
+    }
 
     public Jogada agir(Tabuleiro tabuleiro, Equipe equipeInimiga) throws InterruptedException {
         if(this.morto)
@@ -91,7 +132,7 @@ public abstract class Personagem {
                         continue;
                     }
 
-                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    tabuleiro.getTabuleiro()[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() - 1, this.getPosicao().getColuna());
                     return new Jogada( this, "andou", null, "para o norte", tabuleiro);
 
@@ -104,7 +145,7 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    tabuleiro.getTabuleiro()[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha(), this.getPosicao().getColuna() - 1);
                     return new Jogada(this, "andou", null, "para o oeste", tabuleiro);
 
@@ -118,7 +159,7 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    tabuleiro.getTabuleiro()[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() + 1, this.getPosicao().getColuna());
                     return new Jogada(this, "andou", null, "para o sul", tabuleiro);
 
@@ -132,7 +173,7 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    tabuleiro.getTabuleiro()[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha(), this.getPosicao().getColuna() + 1);
                     return new Jogada(this, "andou", null, "para a leste", tabuleiro);
 
@@ -146,7 +187,7 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    tabuleiro.getTabuleiro()[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() - 1);
                     return new Jogada(this, "andou", null, "para o noroeste", tabuleiro);
 
@@ -160,7 +201,7 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    tabuleiro.getTabuleiro()[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() - 1, this.getPosicao().getColuna() + 1);
                     return new Jogada(this, "andou", null, "para o nordeste", tabuleiro);
 
@@ -173,7 +214,7 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    tabuleiro.getTabuleiro()[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() - 1);
                     return new Jogada(this, "andou", null, "para o sudoeste", tabuleiro);
 
@@ -186,7 +227,7 @@ public abstract class Personagem {
                         System.out.println("Já existe um personagem nessa casa...");
                         continue;
                     }
-                    tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
+                    tabuleiro.getTabuleiro()[this.posicao.getLinha()][this.posicao.getColuna()] = "";
                     this.setPosicao(tabuleiro, this.getPosicao().getLinha() + 1, this.getPosicao().getColuna() + 1);
                     return new Jogada(this, "andou", null, "para o sudeste", tabuleiro);
 
@@ -194,8 +235,8 @@ public abstract class Personagem {
                     System.out.println("Escolha um inimigo para atacar:");
                     Map<Integer, Boolean> atacaveis = new HashMap<>();
                     int qntAtacaveis = 0;
-                    for (int i = 0; i < equipeInimiga.integrantes.length; i++) {
-                        Personagem inimigo = equipeInimiga.integrantes[i];
+                    for (int i = 0; i < equipeInimiga.getPersonagens().length; i++) {
+                        Personagem inimigo = equipeInimiga.getPersonagens()[i];
                         atacaveis.put(i, inimigo.getVida() > 0 && checaDistancia(inimigo));
                         if (inimigo.getVida() > 0 && checaDistancia(inimigo)) {
                             qntAtacaveis++;
@@ -219,7 +260,7 @@ public abstract class Personagem {
                         indiceAlvo = scanner.nextInt();
                     }
 
-                    Personagem alvo = equipeInimiga.integrantes[indiceAlvo];
+                    Personagem alvo = equipeInimiga.getPersonagens()[indiceAlvo];
                     Double danoCausado = atacar(tabuleiro, alvo);
 
                     Thread.sleep(2000);
@@ -233,54 +274,5 @@ public abstract class Personagem {
             }
         }
         return null;
-    }
-
-    public Double atacar(Tabuleiro tabuleiro, Personagem alvo) { return 0.0; }
-
-    public double receberDano(Tabuleiro tabuleiro, double danoBruto) {
-        double danoFinal = danoBruto - this.defesaBase;
-
-        if (danoFinal < 0) {
-            danoFinal = 0;
-        }
-
-        this.setVida(this.vida - danoFinal);
-        if(this.getVida() <= 0) {
-            this.morrer(tabuleiro);
-            this.setVida(0);
-        }
-
-        return danoFinal;
-    }
-
-    public Personagem checaAlcance(Equipe equipeInimiga) {
-        Personagem maisPerto = null;
-        for (Personagem inimigo : equipeInimiga.getPersonagens()) {
-            if (inimigo.morto) {
-                continue;
-            }
-
-            if (checaDistancia(inimigo)) {
-                if (maisPerto == null) {
-                    maisPerto = inimigo;
-                } else {
-                    if (Posicao.distancia(this.posicao, inimigo.posicao) < Posicao.distancia(this.posicao, maisPerto.posicao)) {
-                        maisPerto = inimigo;
-                    }
-                }
-            }
-        }
-
-        return maisPerto;
-    }
-
-    public boolean checaDistancia(Personagem inimigo) {
-        return Posicao.distancia(this.posicao, inimigo.posicao) <= this.alcance;
-    }
-
-    protected void morrer(Tabuleiro tabuleiro) {
-        tabuleiro.tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()] = "";
-        this.equipe.integrantesVivos--;
-        this.morto = true;
     }
 }

@@ -1,8 +1,7 @@
 package entidades;
 
-import utils.Personagem;
 import utils.Equipe;
-import utils.Posicao;
+import utils.Tabuleiro;
 
 public class Stark extends Personagem {
     public Stark(Equipe equipe, String nomePersonagem) {
@@ -14,7 +13,7 @@ public class Stark extends Personagem {
         this.escudo = "\uD83D\uDEE1\uFE0F";
     }
 
-    public Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
+    protected Double atacar(Tabuleiro tabuleiro, Personagem inimigo) {
         double danoCausado = 0;
         if (checaDistancia(inimigo)) {
             System.out.println("Atacando " + inimigo.getNome() + "!");
@@ -27,7 +26,7 @@ public class Stark extends Personagem {
     }
 
     @Override
-    public double receberDano(Tabuleiro tabuleiro, double danoBruto) {
+    protected double receberDano(Tabuleiro tabuleiro, double danoBruto) {
         double danoReduzido = danoBruto * 0.8;
 
         double danoFinal = danoReduzido - this.defesaBase;

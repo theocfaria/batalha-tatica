@@ -2,18 +2,15 @@ package entidades;
 
 import replay.Jogada;
 import utils.Equipe;
-import utils.Personagem;
-import entidades.Tabuleiro;
+import utils.Tabuleiro;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class Bot {
 
     public static Jogada joga(Tabuleiro tabuleiro, Equipe equipe, Equipe equipeInimiga){
         for(int i = 0; i < 3; i++) {
-            if (!equipe.getPersonagem(i).morto){
+            if (!equipe.getPersonagem(i).isMorto()){
                 String vidaFormatada = String.format("%.2f", equipe.getPersonagem(i).getVida());
                 System.out.println("Índice " + i + ": " + equipe.getPersonagem(i).getNome() + " - " + "[" + equipe.getPersonagem(i).getPosicao().getLinha() + ", " + equipe.getPersonagem(i).getPosicao().getColuna() + "] " + " - " +  equipe.getPersonagem(i).getEscudo() + " - " + "[Vida: " + vidaFormatada + "]");
             }
@@ -22,7 +19,7 @@ public class Bot {
         int idxPersonagem;
         do{
             idxPersonagem = rand.nextInt(3);
-        }while(equipe.getPersonagem(idxPersonagem).morto);
+        }while(equipe.getPersonagem(idxPersonagem).isMorto());
 
         Personagem personagemAtual = equipe.getPersonagem(idxPersonagem);
         return escolheAcao(personagemAtual ,tabuleiro, equipeInimiga);
@@ -61,7 +58,7 @@ public class Bot {
                         continue;
                     }
 
-                    tabuleiro.tabuleiro[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
+                    tabuleiro.getTabuleiro()[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
                     personagemAtual.setPosicao(tabuleiro, personagemAtual.getPosicao().getLinha() - 1, personagemAtual.getPosicao().getColuna());
                     return new Jogada(personagemAtual, "andou", null, "para o norte", tabuleiro);
 
@@ -72,7 +69,7 @@ public class Bot {
                     if (personagemAtual.checaColisao(tabuleiro, lin, col - 1)) {
                         continue;
                     }
-                    tabuleiro.tabuleiro[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
+                    tabuleiro.getTabuleiro()[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
                     personagemAtual.setPosicao(tabuleiro, personagemAtual.getPosicao().getLinha(), personagemAtual.getPosicao().getColuna() - 1);
                     return new Jogada(personagemAtual, "andou", null, "para o oeste", tabuleiro);
 
@@ -84,7 +81,7 @@ public class Bot {
                     if (personagemAtual.checaColisao(tabuleiro, lin + 1, col)) {
                         continue;
                     }
-                    tabuleiro.tabuleiro[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
+                    tabuleiro.getTabuleiro()[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
                     personagemAtual.setPosicao(tabuleiro, personagemAtual.getPosicao().getLinha() + 1, personagemAtual.getPosicao().getColuna());
                     return new Jogada(personagemAtual, "andou", null, "para o sul", tabuleiro);
 
@@ -96,7 +93,7 @@ public class Bot {
                     if (personagemAtual.checaColisao(tabuleiro, lin, col + 1)) {
                         continue;
                     }
-                    tabuleiro.tabuleiro[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
+                    tabuleiro.getTabuleiro()[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
                     personagemAtual.setPosicao(tabuleiro, personagemAtual.getPosicao().getLinha(), personagemAtual.getPosicao().getColuna() + 1);
                     return new Jogada(personagemAtual, "andou", null, "para a leste", tabuleiro);
 
@@ -108,7 +105,7 @@ public class Bot {
                     if (personagemAtual.checaColisao(tabuleiro, lin - 1, col - 1)) {
                         continue;
                     }
-                    tabuleiro.tabuleiro[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
+                    tabuleiro.getTabuleiro()[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
                     personagemAtual.setPosicao(tabuleiro, personagemAtual.getPosicao().getLinha() - 1, personagemAtual.getPosicao().getColuna() - 1);
                     return new Jogada(personagemAtual, "andou", null, "para o noroeste", tabuleiro);
 
@@ -120,7 +117,7 @@ public class Bot {
                     if (personagemAtual.checaColisao(tabuleiro, lin - 1, col + 1)) {
                         continue;
                     }
-                    tabuleiro.tabuleiro[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
+                    tabuleiro.getTabuleiro()[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
                     personagemAtual.setPosicao(tabuleiro, personagemAtual.getPosicao().getLinha() - 1, personagemAtual.getPosicao().getColuna() + 1);
                     return new Jogada(personagemAtual, "andou", null, "para o nordeste", tabuleiro);
 
@@ -131,7 +128,7 @@ public class Bot {
                     if (personagemAtual.checaColisao(tabuleiro, lin + 1, col - 1)) {
                         continue;
                     }
-                    tabuleiro.tabuleiro[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
+                    tabuleiro.getTabuleiro()[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
                     personagemAtual.setPosicao(tabuleiro, personagemAtual.getPosicao().getLinha() + 1, personagemAtual.getPosicao().getColuna() - 1);
                     return new Jogada(personagemAtual, "andou", null, "para o sudoeste", tabuleiro);
 
@@ -142,7 +139,7 @@ public class Bot {
                     if (personagemAtual.checaColisao(tabuleiro, lin + 1, col + 1)) {
                         continue;
                     }
-                    tabuleiro.tabuleiro[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
+                    tabuleiro.getTabuleiro()[personagemAtual.getPosicao().getLinha()][personagemAtual.getPosicao().getColuna()] = "";
                     personagemAtual.setPosicao(tabuleiro, personagemAtual.getPosicao().getLinha() + 1, personagemAtual.getPosicao().getColuna() + 1);
                     return new Jogada(personagemAtual, "andou", null, "para o sudeste", tabuleiro);
 

@@ -1,4 +1,2 @@
 TODO LIST:
-
-- checar o encapsulamento dos métodos
-- arrumar tabuleiro duplicado na rodada do bot e nome dos personagens do bot não aparecendo
+TUDO FEITO

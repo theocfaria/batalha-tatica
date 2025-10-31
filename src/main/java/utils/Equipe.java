@@ -5,29 +5,35 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 
-import entidades.Lannister;
-import entidades.Stark;
-import entidades.Tabuleiro;
-import entidades.Targaryen;
-import replay.Jogada;
+import entidades.*;
 
 public class Equipe {
     private Random rand = new Random();
-    protected int integrantesVivos;
-    public Personagem[] integrantes;
-    List<Integer> linhasSorteadas = new ArrayList<>();
-    protected int sorteiaLinha;
     private int id;
-
-    public int getId(){
-        return this.id;
-    }
+    private List<Integer> linhasSorteadas = new ArrayList<>();
+    private int integrantesVivos;
+    private int sorteiaLinha;
+    private Personagem[] integrantes;
 
     public Equipe(Tabuleiro tabuleiro, int id) {
         integrantesVivos = 3;
         integrantes = new Personagem[3];
         this.id = id;
         selecionarEquipe(tabuleiro);
+    }
+
+    public int getId(){ return this.id; }
+
+    public Personagem getPersonagem(int idx){
+        return integrantes[idx];
+    }
+
+    public Personagem[] getPersonagens() { return integrantes; }
+
+    public void diminuiIntegrantes() { this.integrantesVivos--; }
+
+    public boolean perdeu() {
+        return integrantesVivos == 0;
     }
 
     public void selecionarEquipe(Tabuleiro tabuleiro) {
@@ -130,17 +136,11 @@ public class Equipe {
     }
 
 
-    public Personagem getPersonagem(int idx){
-        return integrantes[idx];
-    }
-
-    public Personagem[] getPersonagens() { return integrantes; }
-
     public int escolheIntegrante() {
         Scanner sc = new Scanner(System.in);
         for(int i = 0; i < 3; i++) {
 
-            if (!getPersonagem(i).morto){
+            if (!getPersonagem(i).isMorto()){
                 String vidaFormatada = String.format("%.2f", getPersonagem(i).getVida());
                 System.out.println("Índice " + i + ": " + getPersonagem(i).getNome() + " - " + "[" + getPersonagem(i).getPosicao().getLinha() + ", " + getPersonagem(i).getPosicao().getColuna() + "] " + " - " +  getPersonagem(i).getEscudo() + " - " + "[Vida: " + vidaFormatada + "]");
             }
@@ -148,13 +148,13 @@ public class Equipe {
 
         int escolhido = -1;
         System.out.println("Digite o índice do integrante que deseja mexer: ");
-        while(escolhido < 0 || escolhido > 2 || getPersonagem(escolhido).morto) {
+        while(escolhido < 0 || escolhido > 2 || getPersonagem(escolhido).isMorto()) {
             String escolha = sc.next();
 
             try {
                 escolhido = Integer.parseInt(escolha);
 
-                if(escolhido >= 0 && escolhido <= 2 && !getPersonagem(escolhido).morto){
+                if(escolhido >= 0 && escolhido <= 2 && !getPersonagem(escolhido).isMorto()){
                     break;
                 }
                 System.out.println("Entrada inválida. Digite um índice válido");
@@ -164,9 +164,4 @@ public class Equipe {
         }
         return escolhido;
     }
-
-    public boolean perdeu() {
-        return integrantesVivos == 0;
-    }
-
 }

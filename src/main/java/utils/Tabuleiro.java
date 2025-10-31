@@ -1,7 +1,7 @@
-package entidades;
+package utils;
 
 public class Tabuleiro {
-    public String[][] tabuleiro;
+    private String[][] tabuleiro;
     public final int TAMANHO = 10;
     private final int LARGURA_CELULA = 5;
 
@@ -14,6 +14,12 @@ public class Tabuleiro {
             }
         }
     }
+
+    public String[][] getTabuleiro() {
+        return this.tabuleiro;
+    }
+
+    public void setTabuleiro(String[][] tabuleiro) { this.tabuleiro = tabuleiro; }
 
     public void imprimirTabuleiro() {
         desenharLinhaSeparadora('┌', '┬', '┐');
